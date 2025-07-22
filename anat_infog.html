@@ -1,0 +1,583 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Computer Anatomy Infographic</title>
+        <!-- Tailwind CSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Google Fonts - Inter -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <!-- React CDN -->
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <!-- ReactDOM CDN -->
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+        <!-- Babel for JSX transformation in browser -->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <style>
+            /* Custom animations for the modal */
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(20px) scale(0.95); }
+                to { opacity: 1; transform: translateY(0) scale(1); }
+            }
+            .animate-fade-in {
+                animation: fadeIn 0.3s ease-out forwards;
+            }
+            .animate-fade-in-up {
+                animation: fadeInUp 0.3s ease-out forwards;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script type="text/babel">
+            // React App component code goes here
+            const App = () => {
+              const [selectedComponent, setSelectedComponent] = React.useState(null);
+              const [userQuestion, setUserQuestion] = React.useState('');
+              const [llmResponse, setLlmResponse] = React.useState('');
+              const [isLoadingLlm, setIsLoadingLlm] = React.useState(false);
+              const [llmError, setLlmError] = React.useState('');
+
+              // Data for computer anatomy components
+              const components = [
+                {
+                  id: 'cpu',
+                  name: 'CPU (Central Processing Unit)',
+                  headline: 'The "Brain" of the Computer',
+                  explanation: "This tiny chip does all the thinking and calculations. It's like the main control center, telling all other parts what to do. The faster the CPU, the quicker your computer can do things.",
+                  analogy: "Think of it as the conductor of an orchestra.",
+                  position: { top: '30%', left: '45%' }, // Relative position on the diagram
+                  icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-cpu">
+                      <rect x="5" y="5" width="14" height="14" rx="2" />
+                      <path d="M9 9h6v6H9z" />
+                      <path d="M9 1v3" />
+                      <path d="M15 1v3" />
+                      <path d="M9 20v3" />
+                      <path d="M15 20v3" />
+                      <path d="M20 9h3" />
+                      <path d="M20 15h3" />
+                      <path d="M1 9h3" />
+                      <path d="M1 15h3" />
+                    </svg>
+                  ),
+                },
+                {
+                  id: 'ram',
+                  name: 'RAM (Random Access Memory)',
+                  headline: 'Short-Term Memory for Speed',
+                  explanation: "RAM is where your computer temporarily stores information it's actively using right now. The more RAM you have, the more programs you can run smoothly at the same time without slowing down.",
+                  analogy: "It's like your desk workspace – the bigger it is, the more papers and books you can have open at once.",
+                  position: { top: '50%', left: '60%' },
+                  icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-memory-stick">
+                      <path d="M6 19c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H6z" />
+                      <path d="M9 12h6" />
+                      <path d="M12 9v6" />
+                    </svg>
+                  ),
+                },
+                {
+                  id: 'storage',
+                  name: 'Storage (Hard Drive/SSD)',
+                  headline: 'Long-Term Memory & Storage',
+                  explanation: "This is where all your files, programs, and the computer's operating system are permanently saved, even when you turn it off. There are two main types: older, slower Hard Disk Drives (HDDs) and newer, faster Solid State Drives (SSDs).",
+                  analogy: "This is like a filing cabinet or a library – everything is stored here for later use.",
+                  position: { top: '70%', left: '30%' },
+                  icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-hard-drive">
+                      <line x1="22" x2="2" y1="12" y2="12" />
+                      <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+                      <line x1="6" x2="6.01" y1="16" y2="16" />
+                      <line x1="10" x2="10.01" y1="16" y2="16" />
+                    </svg>
+                  ),
+                },
+                {
+                  id: 'motherboard',
+                  name: 'Motherboard',
+                  headline: 'The Central Nervous System',
+                  explanation: "The motherboard is the main circuit board that connects all the computer's components together. It allows them to communicate and work as a single system.",
+                  analogy: "It's like the city's main road network, connecting all the buildings and enabling traffic flow.",
+                  position: { top: '40%', left: '20%' },
+                  icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circuit-board">
+                      <rect x="2" y="2" width="20" height="20" rx="2" ry="2" />
+                      <path d="M8.5 8.5h7v7h-7z" />
+                      <circle cx="12" cy="12" r="2" />
+                      <path d="M16 8h3" />
+                      <path d="M16 16h3" />
+                      <path d="M8 16H5" />
+                      <path d="M8 8H5" />
+                      <path d="M16 5v3" />
+                      <path d="M8 5v3" />
+                      <path d="M8 19v-3" />
+                      <path d="M16 19v-3" />
+                    </svg>
+                  ),
+                },
+                {
+                  id: 'gpu',
+                  name: 'GPU (Graphics Processing Unit)',
+                  headline: 'The Visual Powerhouse',
+                  explanation: "The GPU is specifically designed to handle everything you see on your screen, from text and images to complex games and videos. A dedicated graphics card is essential for gaming or graphic design.",
+                  analogy: "It's like an artist, drawing everything you see on the canvas (your screen).",
+                  position: { top: '60%', left: '70%' },
+                  icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-monitor-dot">
+                      <circle cx="12" cy="12" r="1" />
+                      <path d="M12 17v4" />
+                      <path d="M8 21h8" />
+                      <rect width="20" height="14" x="2" y="3" rx="2" />
+                    </svg>
+                  ),
+                },
+                {
+                  id: 'psu',
+                  name: 'Power Supply Unit (PSU)',
+                  headline: 'The Computer\'s Power Plant',
+                  explanation: "The PSU converts electricity from your wall outlet into the specific voltages needed to power all the components inside your computer.",
+                  analogy: "It's like a power station, supplying electricity to all the houses (components) in a town.",
+                  position: { top: '85%', left: '50%' },
+                  icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-power">
+                      <path d="M12 2v10" />
+                      <path d="M18.36 6.64A9 9 0 1 1 5.64 17.36L12 12" />
+                    </svg>
+                  ),
+                },
+                {
+                  id: 'cooling',
+                  name: 'Cooling System (Fans/Heatsinks)',
+                  headline: 'Keeping Things Cool',
+                  explanation: "Computer components, especially the CPU and GPU, generate a lot of heat. Cooling systems (fans, heatsinks, liquid cooling) prevent them from overheating and ensure they run efficiently.",
+                  analogy: "It's like the air conditioning or a fan in a room, keeping things from getting too hot.",
+                  position: { top: '15%', left: '70%' },
+                  icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-fan">
+                      <path d="M10.74 2.22a10 10 0 0 1 2.52 0" />
+                      <path d="M16.5 4.44a10 10 0 0 1 3.06 3.06" />
+                      <path d="M21.78 10.74a10 10 0 0 1 0 2.52" />
+                      <path d="M19.56 16.5a10 10 0 0 1-3.06 3.06" />
+                      <path d="M13.26 21.78a10 10 0 0 1-2.52 0" />
+                      <path d="M7.5 19.56a10 10 0 0 1-3.06-3.06" />
+                      <path d="M2.22 13.26a10 10 0 0 1 0-2.52" />
+                      <path d="M4.44 7.5a10 10 0 0 1 3.06-3.06" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  ),
+                },
+              ];
+
+              // Data for input/output devices
+              const ioDevices = [
+                {
+                  name: 'Monitor/Display',
+                  explanation: 'An output device that visually displays information from the computer.',
+                  icon: '🖥️',
+                },
+                {
+                  name: 'Keyboard',
+                  explanation: 'An input device used to type text and commands into the computer.',
+                  icon: '⌨️',
+                },
+                {
+                  name: 'Mouse',
+                  explanation: 'An input device used to control the cursor and interact with elements on the screen.',
+                  icon: '🖱️',
+                },
+                {
+                  name: 'Speakers/Headphones',
+                  explanation: 'Output devices that produce sound from the computer.',
+                  icon: '🔊',
+                },
+                {
+                  name: 'Printer',
+                  explanation: 'An output device that transfers digital documents to physical paper.',
+                  icon: '🖨️',
+                },
+                {
+                  name: 'Webcam/Microphone',
+                  explanation: 'Input devices for video calls, recording audio, and capturing images.',
+                  icon: '📹🎤',
+                },
+              ];
+
+              const handleAskQuestion = async () => {
+                if (!userQuestion.trim()) {
+                  setLlmError("Please enter a question.");
+                  return;
+                }
+
+                setIsLoadingLlm(true);
+                setLlmResponse('');
+                setLlmError('');
+
+                try {
+                  const prompt = `You are an expert in computer hardware and software, explaining concepts to a non-technical user. Please answer the following question about computer anatomy or related topics in a simple, easy-to-understand way. Keep your answer concise and avoid overly technical jargon.
+                  
+                  Question: ${userQuestion}`;
+
+                  let chatHistory = [];
+                  chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                  const payload = { contents: chatHistory };
+                  const apiKey = ""; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
+                  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                  const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                  });
+
+                  if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`API error: ${response.status} - ${errorData.error.message || 'Unknown error'}`);
+                  }
+
+                  const result = await response.json();
+
+                  if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    setLlmResponse(text);
+                  } else {
+                    setLlmError("Could not get a valid response from the AI. Please try again.");
+                    console.error("Unexpected LLM response structure:", result);
+                  }
+                } catch (error) {
+                  console.error("Error calling Gemini API:", error);
+                  setLlmError(`Failed to get an answer: ${error.message}. Please try again.`);
+                } finally {
+                  setIsLoadingLlm(false);
+                }
+              };
+
+              return (
+                <div className="font-inter bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-6 text-gray-800">
+                  {/* Tailwind CSS and Inter font are already loaded in the head */}
+
+                  <h1 className="text-4xl md:text-5xl font-bold text-center text-indigo-800 mb-8 drop-shadow-md">
+                    Understanding Your Computer: An Interactive Guide
+                  </h1>
+
+                  {/* Computer Anatomy Section */}
+                  <section className="mb-12 bg-white p-6 rounded-xl shadow-lg border border-indigo-200">
+                    <h2 className="text-3xl font-semibold text-indigo-700 mb-6 text-center">
+                      The Inner Workings: Computer Anatomy
+                    </h2>
+                    <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+                      Click on the highlighted areas of the computer to learn about its core components!
+                    </p>
+
+                    <div className="relative w-full max-w-3xl mx-auto bg-gray-100 rounded-lg shadow-inner overflow-hidden border border-gray-300" style={{ paddingTop: '75%', backgroundImage: 'url(https://placehold.co/800x600/E0E7FF/4338CA?text=Computer+Diagram)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                      {/* Hotspots for each component */}
+                      {components.map((comp) => (
+                        <div
+                          key={comp.id}
+                          className="absolute w-16 h-16 md:w-20 md:h-20 bg-indigo-500 bg-opacity-70 rounded-full flex items-center justify-center cursor-pointer transform -translate-x-1/2 -translate-y-1/2 hover:scale-110 transition-transform duration-200 shadow-md border-2 border-indigo-600"
+                          style={comp.position}
+                          onClick={() => setSelectedComponent(comp)}
+                          title={`Learn about ${comp.name}`}
+                        >
+                          <span className="text-white text-3xl">{comp.icon}</span>
+                        </div>
+                      ))}
+
+                      {/* Pop-up explanation modal */}
+                      {selectedComponent && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                          <div className="bg-white rounded-xl shadow-2xl p-6 md:p-8 max-w-md w-full relative border-t-4 border-indigo-500 transform scale-95 animate-fade-in-up">
+                            <button
+                              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold"
+                              onClick={() => setSelectedComponent(null)}
+                              aria-label="Close"
+                            >
+                              &times;
+                            </button>
+                            <h3 className="text-2xl font-bold text-indigo-700 mb-3">
+                              {selectedComponent.name}
+                            </h3>
+                            <h4 className="text-xl font-semibold text-gray-700 mb-2">
+                              {selectedComponent.headline}
+                            </h4>
+                            <p className="text-gray-600 mb-4">{selectedComponent.explanation}</p>
+                            <p className="text-indigo-600 italic font-medium">
+                              <span className="font-bold">Analogy:</span> {selectedComponent.analogy}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </section>
+
+                  {/* Input/Output Devices Section */}
+                  <section className="mb-12 bg-white p-6 rounded-xl shadow-lg border border-indigo-200">
+                    <h2 className="text-3xl font-semibold text-indigo-700 mb-6 text-center">
+                      Connecting to Your Computer: Input & Output Devices
+                    </h2>
+                    <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+                      These are the devices you use to interact with your computer and get information out of it.
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {ioDevices.map((device, index) => (
+                        <div key={index} className="bg-gray-50 p-5 rounded-lg shadow-sm border border-gray-200 flex items-start space-x-4">
+                          <span className="text-4xl flex-shrink-0">{device.icon}</span>
+                          <div>
+                            <h3 className="text-xl font-semibold text-gray-800 mb-1">{device.name}</h3>
+                            <p className="text-gray-600">{device.explanation}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+
+                  {/* Software Section */}
+                  <section className="mb-12 bg-white p-6 rounded-xl shadow-lg border border-indigo-200">
+                    <h2 className="text-3xl font-semibold text-indigo-700 mb-6 text-center">
+                      Software: The Unseen Brain
+                    </h2>
+                    <div className="max-w-3xl mx-auto text-center text-gray-600">
+                      <p className="mb-4">
+                        While hardware is the physical stuff you can touch, **software** is the set of instructions that tells the hardware what to do. It's the programs, apps, and operating system (like Windows or macOS) that make your computer useful.
+                      </p>
+                      <p className="mb-4">
+                        Think of it this way: if your computer's hardware is the car, the software is the driver and the GPS system telling it where to go and how to get there.
+                      </p>
+                      <p className="font-semibold text-indigo-600">
+                        It allows you to browse the internet, write documents, play games, and much more!
+                      </p>
+                    </div>
+                  </section>
+
+                  {/* LLM-powered "Ask a Question" Section */}
+                  <section className="mb-12 bg-white p-6 rounded-xl shadow-lg border border-indigo-200">
+                    <h2 className="text-3xl font-semibold text-indigo-700 mb-6 text-center">
+                      ✨ Ask a Computer Question!
+                    </h2>
+                    <p className="text-center text-gray-600 mb-6 max-w-2xl mx-auto">
+                      Have a specific question about computer parts or how they work? Type it below and our AI will try to explain it in simple terms!
+                    </p>
+                    <div className="max-w-xl mx-auto flex flex-col md:flex-row gap-4 items-center">
+                      <input
+                        type="text"
+                        className="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700"
+                        placeholder="e.g., What does a motherboard do?"
+                        value={userQuestion}
+                        onChange={(e) => {
+                          setUserQuestion(e.target.value);
+                          setLlmError(''); // Clear error on new input
+                        }}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            handleAskQuestion();
+                          }
+                        }}
+                        disabled={isLoadingLlm}
+                      />
+                      <button
+                        className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors duration-200 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                        onClick={handleAskQuestion}
+                        disabled={isLoadingLlm}
+                      >
+                        {isLoadingLlm ? (
+                          <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                        ) : (
+                          <>
+                            Ask AI ✨
+                          </>
+                        )}
+                      </button>
+                    </div>
+                    {llmError && (
+                      <p className="text-red-600 text-center mt-4">{llmError}</p>
+                    )}
+                    {llmResponse && (
+                      <div className="mt-6 p-4 bg-indigo-50 border border-indigo-200 rounded-lg shadow-inner animate-fade-in">
+                        <h3 className="text-xl font-semibold text-indigo-700 mb-2">AI's Answer:</h3>
+                        <p className="text-gray-700 leading-relaxed">{llmResponse}</p>
+                      </div>
+                    )}
+                  </section>
+
+
+                  {/* Laptop vs. Desktop Comparison */}
+                  <section className="mb-12 bg-white p-6 rounded-xl shadow-lg border border-indigo-200">
+                    <h2 className="text-3xl font-semibold text-indigo-700 mb-6 text-center">
+                      Laptop vs. Desktop: Which One is Right for You?
+                    </h2>
+                    <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+                      Both laptops and desktops are powerful tools, but they have different strengths. Here's a quick comparison:
+                    </p>
+
+                    <div className="overflow-x-auto">
+                      <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+                        <thead>
+                          <tr className="bg-indigo-100 text-indigo-800">
+                            <th className="py-3 px-4 text-left font-bold rounded-tl-lg">Feature</th>
+                            <th className="py-3 px-4 text-left font-bold">Laptop</th>
+                            <th className="py-3 px-4 text-left font-bold rounded-tr-lg">Desktop</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-3 px-4 font-medium text-gray-700">Portability</td>
+                            <td className="py-3 px-4 text-green-700">Highly Portable (Built-in screen, keyboard, battery)</td>
+                            <td className="py-3 px-4 text-red-700">Not Portable (Fixed location)</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 bg-gray-50">
+                            <td className="py-3 px-4 font-medium text-gray-700">Performance</td>
+                            <td className="py-3 px-4 text-yellow-700">Good to Excellent (Can be powerful, but often throttled)</td>
+                            <td className="py-3 px-4 text-green-700">Excellent (Easier to get top-tier components, better cooling)</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-3 px-4 font-medium text-gray-700">Upgradeability</td>
+                            <td className="py-3 px-4 text-red-700">Limited (Often only RAM/Storage)</td>
+                            <td className="py-3 px-4 text-green-700">High (Most components can be swapped/upgraded)</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 bg-gray-50">
+                            <td className="py-3 px-4 font-medium text-gray-700">Cost</td>
+                            <td className="py-3 px-4 text-yellow-700">Often higher for equivalent performance</td>
+                            <td className="py-3 px-4 text-green-700">Generally more affordable for equivalent performance</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-3 px-4 font-medium text-gray-700">Ergonomics</td>
+                            <td className="py-3 px-4 text-yellow-700">Can be challenging for long periods (fixed screen/keyboard)</td>
+                            <td className="py-3 px-4 text-green-700">Excellent (Customizable monitors, keyboards, mice)</td>
+                          </tr>
+                          <tr className="bg-gray-50">
+                            <td className="py-3 px-4 font-medium text-gray-700 rounded-bl-lg">Ideal Use</td>
+                            <td className="py-3 px-4 text-blue-700">Students, travelers, mobile professionals, casual users</td>
+                            <td className="py-3 px-4 text-blue-700 rounded-br-lg">Gamers, video editors, designers, office work, home users</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+
+                  {/* Notebook vs. Convertible Laptop Comparison */}
+                  <section className="mb-12 bg-white p-6 rounded-xl shadow-lg border border-indigo-200">
+                    <h2 className="text-3xl font-semibold text-indigo-700 mb-6 text-center">
+                      Laptop Styles: Notebook vs. Convertible
+                    </h2>
+                    <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+                      Laptops come in different styles to suit various needs. Here's a look at two popular types:
+                    </p>
+
+                    <div className="overflow-x-auto">
+                      <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+                        <thead>
+                          <tr className="bg-indigo-100 text-indigo-800">
+                            <th className="py-3 px-4 text-left font-bold rounded-tl-lg">Feature</th>
+                            <th className="py-3 px-4 text-left font-bold">Notebook Laptop</th>
+                            <th className="py-3 px-4 text-left font-bold rounded-tr-lg">Convertible Laptop (2-in-1)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-3 px-4 font-medium text-gray-700">Form Factor</td>
+                            <td className="py-3 px-4">Traditional clamshell design</td>
+                            <td className="py-3 px-4">Screen rotates 360 degrees or detaches to become a tablet</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 bg-gray-50">
+                            <td className="py-3 px-4 font-medium text-gray-700">Touchscreen</td>
+                            <td className="py-3 px-4">Less common, or optional</td>
+                            <td className="py-3 px-4 text-green-700">Standard, often with stylus support</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-3 px-4 font-medium text-gray-700">Versatility</td>
+                            <td className="py-3 px-4">Primarily for typing and traditional laptop tasks</td>
+                            <td className="py-3 px-4 text-green-700">Highly versatile (laptop, tablet, tent, stand modes)</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 bg-gray-50">
+                            <td className="py-3 px-4 font-medium text-gray-700">Weight/Thickness</td>
+                            <td className="py-3 px-4">Can be very thin and light, or more robust for performance</td>
+                            <td className="py-3 px-4">Often slightly thicker/heavier due to hinge mechanism and touchscreen</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-3 px-4 font-medium text-gray-700">Price</td>
+                            <td className="py-3 px-4">Generally more affordable for similar specs</td>
+                            <td className="py-3 px-4">Often at a premium due to added features and complexity</td>
+                          </tr>
+                          <tr className="bg-gray-50">
+                            <td className="py-3 px-4 font-medium text-gray-700 rounded-bl-lg">Ideal Use</td>
+                            <td className="py-3 px-4 text-blue-700">Everyday computing, productivity, gaming (performance models)</td>
+                            <td className="py-3 px-4 text-blue-700 rounded-br-lg">Artists, note-takers, presenters, media consumption, light travel</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+
+                  {/* Tower Desktop vs. NUC Comparison */}
+                  <section className="bg-white p-6 rounded-xl shadow-lg border border-indigo-200">
+                    <h2 className="text-3xl font-semibold text-indigo-700 mb-6 text-center">
+                      Desktop Sizes: Tower vs. NUC (Mini PC)
+                    </h2>
+                    <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+                      Desktops also come in various sizes, from large towers to tiny mini PCs.
+                    </p>
+
+                    <div className="overflow-x-auto">
+                      <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+                        <thead>
+                          <tr className="bg-indigo-100 text-indigo-800">
+                            <th className="py-3 px-4 text-left font-bold rounded-tl-lg">Feature</th>
+                            <th className="py-3 px-4 text-left font-bold">Tower Desktop</th>
+                            <th className="py-3 px-4 text-left font-bold rounded-tr-lg">NUC (Next Unit of Computing) / Mini PC</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-3 px-4 font-medium text-gray-700">Size</td>
+                            <td className="py-3 px-4">Large, traditional desktop case</td>
+                            <td className="py-3 px-4">Very small, often palm-sized or slightly larger</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 bg-gray-50">
+                            <td className="py-3 px-4 font-medium text-gray-700">Performance</td>
+                            <td className="py-3 px-4 text-green-700">Excellent (Can house powerful CPUs, dedicated GPUs)</td>
+                            <td className="py-3 px-4 text-yellow-700">Good (Suitable for most daily tasks, some light gaming)</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-3 px-4 font-medium text-gray-700">Upgradeability</td>
+                            <td className="py-3 px-4 text-green-700">High (Most components easily upgraded/replaced)</td>
+                            <td className="py-3 px-4 text-red-700">Limited (Often only RAM/Storage, integrated graphics)</td>
+                          </tr>
+                          <tr className="border-b border-gray-200 bg-gray-50">
+                            <td className="py-3 px-4 font-medium text-gray-700">Noise/Cooling</td>
+                            <td className="py-3 px-4">Can be louder with high-performance components, but better cooling options</td>
+                            <td className="py-3 px-4">Generally quieter, but limited cooling can impact sustained performance</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-3 px-4 font-medium text-gray-700">Connectivity</td>
+                            <td className="py-3 px-4">Many ports, expansion slots for additional cards</td>
+                            <td className="py-3 px-4">Fewer ports, but usually sufficient for basic peripherals</td>
+                          </tr>
+                          <tr className="bg-gray-50">
+                            <td className="py-3 px-4 font-medium text-gray-700 rounded-bl-lg">Ideal Use</td>
+                            <td className="py-3 px-4 text-blue-700">Gaming, video editing, professional workstations, power users</td>
+                            <td className="py-3 px-4 text-blue-700 rounded-br-lg">Home theater PC (HTPC), office work, basic computing, space-saving setups</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
+              );
+            };
+
+            // Render the React component
+            ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+        </script>
+    </body>
+    </html>
