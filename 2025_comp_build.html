@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +8,11 @@
     <style>
         body {
             font-family: "Inter", sans-serif;
-            background-color: transparent;
-            /* Changed to transparent */
-            color: #e2e8f0;
-            /* Light text color */
+            background-color: transparent; /* Changed to transparent */
+            color: #e2e8f0; /* Light text color */
             display: flex;
-            flex-direction: column;
-            /* Allow content and button to stack */
-            justify-content: flex-start;
-            /* Align items to the top */
+            flex-direction: column; /* Allow content and button to stack */
+            justify-content: flex-start; /* Align items to the top */
             align-items: center;
             min-height: 100vh;
             padding: 20px;
@@ -26,27 +21,20 @@
 
         .container {
             display: flex;
-            flex-direction: column;
-            /* Arrange items in a column */
-            gap: 15px;
-            /* Space between components */
+            flex-direction: column; /* Arrange items in a column */
+            gap: 15px; /* Space between components */
             width: 90%;
-            max-width: 600px;
-            /* Max width for the column */
-            background-color: #2d3748;
-            /* Darker background for the container */
+            max-width: 800px; /* Increased max-width to accommodate the table */
+            background-color: #2d3748; /* Darker background for the container */
             border-radius: 12px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             padding: 25px;
-            position: relative;
-            /* For tooltip positioning */
-            margin-bottom: 20px;
-            /* Space below the main container */
+            position: relative; /* For tooltip positioning */
+            margin-bottom: 20px; /* Space below the main container */
         }
 
         .component-item {
-            background-color: #4a5568;
-            /* Slightly lighter background for each item */
+            background-color: #4a5568; /* Slightly lighter background for each item */
             padding: 15px 20px;
             border-radius: 8px;
             cursor: pointer;
@@ -55,38 +43,28 @@
             font-size: 1.1rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            /* To space out text and image */
+            justify-content: space-between; /* To space out text and image */
             border: 1px solid #667e9c;
         }
 
         .component-item:hover {
-            background-color: #667e9c;
-            /* Highlight on hover */
-            transform: translateY(-3px);
-            /* Slight lift effect */
+            background-color: #667e9c; /* Highlight on hover */
+            transform: translateY(-3px); /* Slight lift effect */
         }
 
         .component-item img {
-            width: 50px;
-            /* Fixed width for component images */
-            height: 50px;
-            /* Fixed height for component images */
+            width: 50px; /* Fixed width for component images */
+            height: 50px; /* Fixed height for component images */
             border-radius: 4px;
             object-fit: cover;
-            margin-left: 15px;
-            /* Space between text and image */
-            border: 1px solid #81e6d9;
-            /* Small border for images */
-            flex-shrink: 0;
-            /* Prevent image from shrinking */
+            margin-left: 15px; /* Space between text and image */
+            border: 1px solid #81e6d9; /* Small border for images */
+            flex-shrink: 0; /* Prevent image from shrinking */
         }
 
         .tooltip {
-            position: fixed;
-            /* Use fixed for better positioning relative to viewport */
-            background-color: #1a202c;
-            /* Darkest background for tooltip */
+            position: fixed; /* Use fixed for better positioning relative to viewport */
+            background-color: #1a202c; /* Darkest background for tooltip */
             color: #e2e8f0;
             padding: 18px;
             border-radius: 10px;
@@ -96,11 +74,9 @@
             visibility: hidden;
             transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
             pointer-events: none;
-            max-width: 350px;
-            /* Wider tooltip for more details */
+            max-width: 350px; /* Wider tooltip for more details */
             text-align: left;
-            border: 1px solid #81e6d9;
-            /* Teal border for pop-up */
+            border: 1px solid #81e6d9; /* Teal border for pop-up */
         }
 
         .tooltip.visible {
@@ -112,8 +88,7 @@
             font-size: 1.2rem;
             font-weight: bold;
             margin-bottom: 10px;
-            color: #81e6d9;
-            /* Teal color for heading */
+            color: #81e6d9; /* Teal color for heading */
             border-bottom: 1px solid #4a5568;
             padding-bottom: 5px;
         }
@@ -130,72 +105,185 @@
 
         .replaces-info {
             font-style: italic;
-            color: #cbd5e0;
-            /* Lighter grey for replaced info */
+            color: #cbd5e0; /* Lighter grey for replaced info */
             margin-top: 8px;
             padding-top: 5px;
             border-top: 1px dashed #667e9c;
         }
 
-        /* Responsive adjustments for modal */
+        /* Comparison Table Styles */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background-color: #1a202c; /* Dark background for table */
+            border-radius: 8px;
+            overflow: hidden; /* For rounded corners on table */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 12px 15px;
+            border: 1px solid #4a5568; /* Border for cells */
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table th {
+            background-color: #2d3748; /* Header background */
+            color: #81e6d9; /* Header text color */
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #242b38; /* Alternate row background */
+        }
+
+        .comparison-table td:last-child {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .container {
                 width: 95%;
                 padding: 15px;
             }
-
             .component-item {
                 font-size: 1rem;
                 padding: 12px 15px;
             }
-
             .component-item img {
                 width: 40px;
                 height: 40px;
                 margin-left: 10px;
             }
-
             .tooltip {
-                max-width: 90%;
-                /* Take more width on smaller screens */
+                max-width: 90%; /* Take more width on smaller screens */
                 padding: 12px;
                 font-size: 0.85rem;
             }
-
             .tooltip h3 {
                 font-size: 1.1rem;
+            }
+            .comparison-table th, .comparison-table td {
+                padding: 8px 10px;
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
-
 <body>
 
     <div class="container">
         <h2 class="text-2xl font-bold text-center mb-5 text-teal-300">Your PC Build Components</h2>
 
-        <div id="cpu-item" class="component-item">AMD Ryzen 7 5800XT CPU <img
-                src="https://placehold.co/50x50/34495e/ecf0f1?text=CPU" alt="CPU Image"></div>
-        <div id="cooler-item" class="component-item">Thermalright Peerless Assassin 120 SE CPU Cooler <img
-                src="https://placehold.co/50x50/34495e/ecf0f1?text=COOLER" alt="Cooler Image"></div>
-        <div id="motherboard-item" class="component-item">ASUS Prime B450 Motherboard <img
-                src="https://placehold.co/50x50/34495e/ecf0f1?text=MOBO" alt="Motherboard Image"></div>
-        <div id="ram-item" class="component-item">64GB HyperX Fury DDR4 RAM <img
-                src="https://placehold.co/50x50/34495e/ecf0f1?text=RAM" alt="RAM Image"></div>
-        <div id="gpu-item" class="component-item">NVIDIA GeForce RTX 3090 GPU <img
-                src="https://placehold.co/50x50/34495e/ecf0f1?text=GPU" alt="GPU Image"></div>
-        <div id="psu-item" class="component-item">Corsair RM1000x PSU <img
-                src="https://placehold.co/50x50/34495e/ecf0f1?text=PSU" alt="PSU Image"></div>
-        <div id="case-item" class="component-item">iBUYPOWER Snowblind S Case <img
-                src="https://placehold.co/50x50/34495e/ecf0f1?text=CASE" alt="Case Image"></div>
-        <div id="storage-item" class="component-item">Storage (SSDs & HDDs) <img
-                src="https://placehold.co/50x50/34495e/ecf0f1?text=STORAGE" alt="Storage Image"></div>
+        <div id="cpu-item" class="component-item">AMD Ryzen 7 5800XT CPU <img src="https://placehold.co/50x50/34495e/ecf0f1?text=CPU" alt="CPU Image"></div>
+        <div id="cooler-item" class="component-item">Thermalright Peerless Assassin 120 SE CPU Cooler <img src="https://placehold.co/50x50/34495e/ecf0f1?text=COOLER" alt="Cooler Image"></div>
+        <div id="motherboard-item" class="component-item">ASUS Prime B450 Motherboard <img src="https://placehold.co/50x50/34495e/ecf0f1?text=MOBO" alt="Motherboard Image"></div>
+        <div id="ram-item" class="component-item">64GB HyperX Fury DDR4 RAM <img src="https://placehold.co/50x50/34495e/ecf0f1?text=RAM" alt="RAM Image"></div>
+        <div id="gpu-item" class="component-item">NVIDIA GeForce RTX 3090 GPU <img src="https://placehold.co/50x50/34495e/ecf0f1?text=GPU" alt="GPU Image"></div>
+        <div id="psu-item" class="component-item">Corsair RM1000x PSU <img src="https://placehold.co/50x50/34495e/ecf0f1?text=PSU" alt="PSU Image"></div>
+        <div id="case-item" class="component-item">iBUYPOWER Snowblind S Case <img src="https://placehold.co/50x50/34495e/ecf0f1?text=CASE" alt="Case Image"></div>
+        <div id="storage-item" class="component-item">Storage (SSDs & HDDs) <img src="https://placehold.co/50x50/34495e/ecf0f1?text=STORAGE" alt="Storage Image"></div>
 
         <!-- Tooltip for displaying details -->
         <div id="tooltip" class="tooltip">
             <h3></h3>
             <div id="tooltip-content"></div>
         </div>
+
+        <h3 class="text-xl font-bold text-center mt-10 mb-5 text-teal-300">Component Comparison: New vs. Old</h3>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Old Spec</th>
+                    <th>New Spec</th>
+                    <th>% Difference</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="6">CPU (AMD Ryzen)</td>
+                    <td>Ryzen 5 2600 (6 Cores / 12 Threads)</td>
+                    <td>Ryzen 7 5800XT (8 Cores / 16 Threads)</td>
+                    <td>+33.33% Cores/Threads</td>
+                </tr>
+                <tr>
+                    <td>3.4 GHz Base Clock</td>
+                    <td>3.8 GHz Base Clock</td>
+                    <td>+11.76%</td>
+                </tr>
+                <tr>
+                    <td>3.9 GHz Boost Clock</td>
+                    <td>4.8 GHz Boost Clock</td>
+                    <td>+23.08%</td>
+                </tr>
+                <tr>
+                    <td>16MB L3 Cache</td>
+                    <td>32MB L3 Cache</td>
+                    <td>+100%</td>
+                </tr>
+                <tr>
+                    <td>65W TDP</td>
+                    <td>105W TDP</td>
+                    <td>+61.54%</td>
+                </tr>
+                <tr>
+                    <td>~197 FPS (Gaming)</td>
+                    <td>~221 FPS (Gaming)</td>
+                    <td>+12.18%</td>
+                </tr>
+                <tr>
+                    <td>CPU Cooler</td>
+                    <td>Stock Wraith Prism</td>
+                    <td>Thermalright Peerless Assassin 120 SE</td>
+                    <td>Significant Cooling Improvement</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">RAM</td>
+                    <td>48GB Mixed RAM</td>
+                    <td>64GB HyperX Fury DDR4</td>
+                    <td>+33.33% Capacity</td>
+                </tr>
+                <tr>
+                    <td>~2666MHz Speed</td>
+                    <td>3200MHz Speed</td>
+                    <td>+20.03%</td>
+                </tr>
+                <tr>
+                    <td rowspan="4">GPU (NVIDIA GeForce)</td>
+                    <td>GTX 1060 (6GB GDDR5)</td>
+                    <td>RTX 3090 (24GB GDDR6X)</td>
+                    <td>+300% VRAM</td>
+                </tr>
+                <tr>
+                    <td>~1280 CUDA Cores</td>
+                    <td>10496 CUDA Cores</td>
+                    <td>+720%</td>
+                </tr>
+                <tr>
+                    <td>120W TDP</td>
+                    <td>350W TDP</td>
+                    <td>+191.67%</td>
+                </tr>
+                <tr>
+                    <td>~69 FPS (1440p Gaming)</td>
+                    <td>~162 FPS (1440p Gaming)</td>
+                    <td>+134.78%</td>
+                </tr>
+                <tr>
+                    <td>PSU</td>
+                    <td>Unidentified 750W</td>
+                    <td>Corsair RM1000x (1000W)</td>
+                    <td>+33.33% Wattage</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <script>
@@ -360,5 +448,4 @@
         }
     </script>
 </body>
-
 </html>
