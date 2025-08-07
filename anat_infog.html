@@ -68,48 +68,13 @@
 </head>
 
 <body class="bg-gray-900 text-white min-h-screen flex flex-col">
-  <!-- Header & Navigation from index.html -->
-  <header class="py-6 px-4 md:px-8 bg-gray-900 text-white">
-    <div class="container mx-auto flex justify-between items-center">
-      <!-- Site Title / Logo -->
-      <a href="index.html" class="text-2xl md:text-3xl font-bold text-white tracking-wide">AJLIN Rivera</a>
-      <!-- Navigation Links -->
-      <nav class="hidden md:flex space-x-6 lg:space-x-8 items-center">
-        <a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-300">Home</a>
-        <!-- Portfolio Dropdown Menu -->
-        <div class="relative group">
-          <button
-            class="text-white hover:text-white transition-colors duration-300 font-semibold focus:outline-none flex items-center">
-            Portfolio
-            <!-- Dropdown arrow icon -->
-            <svg class="ml-2 h-4 w-4 transform group-hover:rotate-180 transition-transform duration-300"
-              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd" />
-            </svg>
-          </button>
-          <!-- Dropdown content -->
-          <div
-            class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 hidden group-hover:block transition-all duration-300 ease-in-out">
-            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-              <a href="portfolio.html"
-                class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
-                role="menuitem">All Projects</a>
-              <a href="anat_infog.html"
-                class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
-                role="menuitem">Computer Anatomy</a>
-            </div>
-          </div>
-        </div>
-        <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">Contact</a>
-      </nav>
-    </div>
-  </header>
+
+  <!-- This is the placeholder for the reusable navbar -->
+  <div id="navbar-placeholder"></div>
 
   <!-- Main container for the React app -->
   <div id="root"></div>
-
+  
   <script type="text/babel">
     // Main App component
     const App = () => {
@@ -457,6 +422,57 @@
     // Render the React component
     ReactDOM.createRoot(document.getElementById('root')).render(<App />);
   </script>
+    
+    <!-- Script to load the reusable navbar -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // The HTML for the navbar is now a string to prevent fetch errors in the local environment.
+        const navbarHtml = `<header class="py-6 px-4 md:px-8 bg-gray-900 text-white">
+      <div class="container mx-auto flex justify-between items-center">
+        <!-- Site Title / Logo -->
+        <a href="index.html" class="text-2xl md:text-3xl font-bold text-white tracking-wide">AJLIN Rivera</a>
+        <!-- Navigation Links -->
+        <nav class="hidden md:flex space-x-6 lg:space-x-8 items-center">
+          <a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-300">Home</a>
+          <!-- Portfolio Dropdown Menu -->
+          <div class="relative group">
+            <button
+              class="text-white hover:text-white transition-colors duration-300 font-semibold focus:outline-none flex items-center">
+              Portfolio
+              <!-- Dropdown arrow icon -->
+              <svg class="ml-2 h-4 w-4 transform group-hover:rotate-180 transition-transform duration-300"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd" />
+              </svg>
+            </button>
+            <!-- Dropdown content -->
+            <div
+              class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 hidden group-hover:block transition-all duration-300 ease-in-out">
+              <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                <a href="portfolio.html"
+                  class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+                  role="menuitem">All Projects</a>
+                <a href="anat_infog.html"
+                  class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+                  role="menuitem">Computer Anatomy</a>
+              </div>
+            </div>
+          </div>
+          <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">Contact</a>
+        </nav>
+      </div>
+    </header>`;
+
+        const navbarPlaceholder = document.getElementById('navbar-placeholder');
+        if (navbarPlaceholder) {
+          navbarPlaceholder.innerHTML = navbarHtml;
+        } else {
+          console.error('Navbar placeholder div with id "navbar-placeholder" not found.');
+        }
+      });
+    </script>
 </body>
 
 </html>
