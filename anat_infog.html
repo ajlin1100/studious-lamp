@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Computer Anatomy Infographic</title>
+  <!-- Favicon link, you can add your own -->
+  <link rel="icon" href="https://ajlin1100.github.io/studious-lamp/theshnka.png">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts - Inter -->
@@ -58,65 +60,120 @@
       scrollbar-width: none;
       /* Firefox */
     }
+
+    body {
+      font-family: 'Inter', sans-serif;
+    }
   </style>
 </head>
 
-<body class="bg-gray-50 font-sans leading-normal tracking-wider">
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+  <!-- Header & Navigation from index.html -->
+  <header class="py-6 px-4 md:px-8 bg-gray-900 text-white">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- Site Title / Logo -->
+      <a href="index.html" class="text-2xl md:text-3xl font-bold text-white tracking-wide">AJLIN Rivera</a>
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex space-x-6 lg:space-x-8 items-center">
+        <a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-300">Home</a>
+        <!-- Portfolio Dropdown Menu -->
+        <div class="relative group">
+          <button
+            class="text-white hover:text-white transition-colors duration-300 font-semibold focus:outline-none flex items-center">
+            Portfolio
+            <!-- Dropdown arrow icon -->
+            <svg class="ml-2 h-4 w-4 transform group-hover:rotate-180 transition-transform duration-300"
+              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
+            </svg>
+          </button>
+          <!-- Dropdown content -->
+          <div
+            class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 hidden group-hover:block transition-all duration-300 ease-in-out">
+            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+              <a href="portfolio.html"
+                class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+                role="menuitem">All Projects</a>
+              <a href="anat_infog.html"
+                class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+                role="menuitem">Computer Anatomy</a>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">Contact</a>
+      </nav>
+    </div>
+  </header>
+
   <!-- Main container for the React app -->
   <div id="root"></div>
 
   <script type="text/babel">
+    // Main App component
     const App = () => {
       const [selectedComponent, setSelectedComponent] = React.useState(null);
 
+      // Data for each computer component, including a short description for the card and a longer one for the modal.
       const components = [
         {
           name: 'Motherboard',
           img: 'https://placehold.co/150x150/4F46E5/FFFFFF?text=M',
-          description: 'The motherboard is the main circuit board that connects all the other components of the computer. It provides the communication pathways for everything to work together.',
+          shortDesc: 'The central hub for all components.',
+          fullDesc: 'The motherboard is the main circuit board that connects all the other components of the computer. It provides the communication pathways for everything to work together.',
           analogy: 'Think of it as the central nervous system of the computer, connecting the brain (CPU), memory (RAM), and all the other parts.',
         },
         {
           name: 'CPU',
           img: 'https://placehold.co/150x150/F87171/FFFFFF?text=CPU',
-          description: 'The Central Processing Unit, or CPU, is the "brain" of the computer. It performs all the calculations and executes the instructions of the programs you run.',
+          shortDesc: 'The "brain" of the computer.',
+          fullDesc: 'The Central Processing Unit, or CPU, is the "brain" of the computer. It performs all the calculations and executes the instructions of the programs you run.',
           analogy: 'This is the "brains" of the operation. It\'s like the main office worker who does all the thinking and calculations.',
         },
         {
           name: 'RAM',
           img: 'https://placehold.co/150x150/34D399/FFFFFF?text=RAM',
-          description: 'Random Access Memory, or RAM, is the computer\'s short-term memory. It holds the data for the programs and processes that are currently running.',
+          shortDesc: 'Short-term memory for active tasks.',
+          fullDesc: 'Random Access Memory, or RAM, is the computer\'s short-term memory. It holds the data for the programs and processes that are currently running.',
           analogy: 'Imagine this as your desk space. The more desk space you have, the more books and papers you can have open and work on at once.',
         },
         {
           name: 'GPU',
           img: 'https://placehold.co/150x150/60A5FA/FFFFFF?text=GPU',
-          description: 'The Graphics Processing Unit, or GPU, is a specialized processor that handles all the graphics and visual data. It\'s especially important for gaming and video editing.',
+          shortDesc: 'Processes and renders graphics.',
+          fullDesc: 'The Graphics Processing Unit, or GPU, is a specialized processor that handles all the graphics and visual data. It\'s especially important for gaming and video editing.',
           analogy: 'This is the computer\'s artist. It takes all the raw data and paints the pictures, animations, and videos that you see on your screen.',
         },
         {
           name: 'Storage',
           img: 'https://placehold.co/150x150/FBBF24/FFFFFF?text=HDD/SSD',
-          description: 'This is where all your files, programs, and the operating system are stored for the long term, even when the computer is turned off.',
+          shortDesc: 'Long-term storage for data and files.',
+          fullDesc: 'This is where all your files, programs, and the operating system are stored for the long term, even when the computer is turned off.',
           analogy: 'This is the filing cabinet or the library of the computer, where all the information is saved and kept safe.',
         },
         {
           name: 'PSU',
           img: 'https://placehold.co/150x150/A78BFA/FFFFFF?text=PSU',
-          description: 'The Power Supply Unit, or PSU, converts the AC power from your wall outlet into the DC power that all the computer components need to operate.',
+          shortDesc: 'Converts power from the wall.',
+          fullDesc: 'The Power Supply Unit, or PSU, converts the AC power from your wall outlet into the DC power that all the computer components need to operate.',
           analogy: 'This is the heart of the computer, pumping the necessary power "blood" to all the different components to keep them running.',
         },
       ];
 
+      // Function to open the modal and set the selected component
       const openModal = (component) => {
         setSelectedComponent(component);
       };
 
+      // Function to close the modal
       const closeModal = () => {
         setSelectedComponent(null);
       };
 
+      // Modal component for displaying detailed information
       const Modal = ({ component, onClose }) => {
+        // Do not render the modal if no component is selected
         if (!component) return null;
         return (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 modal-overlay" onClick={onClose}>
@@ -130,78 +187,269 @@
                 </button>
               </div>
               <img src={component.img} alt={component.name} className="mt-6 mx-auto w-40 h-40 rounded-full object-cover border-4 border-gray-200" />
-              <p className="mt-6 text-gray-600 text-lg text-center">{component.description}</p>
+              <p className="mt-6 text-gray-600 text-lg text-center">{component.fullDesc}</p>
               <p className="mt-2 text-gray-400 italic text-center text-md">{component.analogy}</p>
             </div>
           </div>
         );
       };
 
+      // Main layout and component grid
       return (
         <div className="container mx-auto py-12 px-4 md:px-8">
           <header className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-100">
               Computer Anatomy Infographic
             </h1>
-            <p className="mt-4 text-xl text-gray-500">
+            <p className="mt-4 text-xl text-gray-300">
               Explore the core components of a computer and their functions.
             </p>
           </header>
 
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {components.map((component) => (
-              <div key={component.name} onClick={() => openModal(component)} className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <img src={component.img} alt={component.name} className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md" />
-                <h2 className="mt-4 text-2xl font-semibold text-gray-800">{component.name}</h2>
-                <p className="mt-2 text-gray-500">{component.description}</p>
+              <div key={component.name} onClick={() => openModal(component)} className="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <img src={component.img} alt={component.name} className="w-24 h-24 rounded-full object-cover border-4 border-gray-700 shadow-md" />
+                <h2 className="mt-4 text-2xl font-semibold text-white">{component.name}</h2>
+                <p className="mt-2 text-gray-400">{component.shortDesc}</p>
               </div>
             ))}
           </section>
 
-          <section className="mt-12 p-8 bg-white rounded-xl shadow-lg">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Desktop vs. SFF (Small Form Factor) PC</h2>
-            <p className="text-gray-600 mb-8 text-center max-w-3xl mx-auto">
+          {/* New section for combined Input and Output Devices */}
+          <section className="mt-12 p-8 bg-gray-800 rounded-xl shadow-lg">
+            <h2 className="text-3xl font-bold text-white mb-6 text-center">
+              Input & Output Devices
+            </h2>
+            <p className="text-gray-400 mb-8 text-center max-w-3xl mx-auto">
+              These are examples of devices that you use to interact with the computer and get information out of it.
+            </p>
+            <div className="md:grid md:grid-cols-2 md:gap-8 space-y-8 md:space-y-0">
+              {/* Input Devices Column */}
+              <div className="bg-gray-900 p-6 rounded-lg shadow-inner">
+                <h3 className="text-xl font-semibold text-white mb-4">Input</h3>
+                <ul className="space-y-4">
+                  <li className="bg-gray-800 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium text-gray-200">Mouse</h4>
+                    <p className="text-sm text-gray-400">
+                      A pointing device that allows you to control the cursor on the screen.
+                    </p>
+                  </li>
+                  <li className="bg-gray-800 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium text-gray-200">Keyboard</h4>
+                    <p className="text-sm text-gray-400">
+                      Used to type text and enter commands.
+                    </p>
+                  </li>
+                  <li className="bg-gray-800 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium text-gray-200">Microphone</h4>
+                    <p className="text-sm text-gray-400">
+                      Captures sound waves and converts them into digital audio data.
+                    </p>
+                  </li>
+                  <li className="bg-gray-800 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium text-gray-200">Webcam</h4>
+                    <p className="text-sm text-gray-400">
+                      Captures still images or motion video digitally.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Output Devices Column */}
+              <div className="bg-gray-900 p-6 rounded-lg shadow-inner">
+                <h3 className="text-xl font-semibold text-white mb-4">Output</h3>
+                <ul className="space-y-4">
+                  <li className="bg-gray-800 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium text-gray-200">Monitor</h4>
+                    <p className="text-sm text-gray-400">
+                      Displays images, text, and video on a screen.
+                    </p>
+                  </li>
+                  <li className="bg-gray-800 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium text-gray-200">Speakers</h4>
+                    <p className="text-sm text-gray-400">
+                      Produce audio output from the computer.
+                    </p>
+                  </li>
+                  <li className="bg-gray-800 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium text-gray-200">Printer</h4>
+                    <p className="text-sm text-gray-400">
+                      Produces a hard copy of documents and images.
+                    </p>
+                  </li>
+                  <li className="bg-gray-800 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium text-gray-200">Headphones</h4>
+                    <p className="text-sm text-gray-400">
+                      Allow you to listen to audio privately.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* New section for software */}
+          <section className="mt-12 p-8 bg-gray-800 rounded-xl shadow-lg">
+            <h2 className="text-3xl font-bold text-white mb-6 text-center">
+              Software: The Unseen Brain
+            </h2>
+            <p className="text-gray-400 mb-8 text-center max-w-3xl mx-auto">
+              While hardware is the physical body of a computer, software is its mind and soul. It consists of the programs and data that tell the hardware what to do.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Operating Systems */}
+              <div className="bg-gray-900 p-6 rounded-lg shadow-inner">
+                <h3 className="text-xl font-semibold text-white mb-4">Operating Systems (OS)</h3>
+                <p className="text-sm text-gray-400">The core software that manages all hardware and software resources. Examples include Windows, macOS, and Linux.</p>
+              </div>
+              {/* Applications */}
+              <div className="bg-gray-900 p-6 rounded-lg shadow-inner">
+                <h3 className="text-xl font-semibold text-white mb-4">Applications</h3>
+                <p className="text-sm text-gray-400">Programs designed to perform specific tasks for the user. Examples include web browsers, word processors, and games.</p>
+              </div>
+              {/* Drivers */}
+              <div className="bg-gray-900 p-6 rounded-lg shadow-inner">
+                <h3 className="text-xl font-semibold text-white mb-4">Drivers</h3>
+                <p className="text-sm text-gray-400">Specialized software that allows the OS to communicate with a specific hardware device, such as a graphics card or a printer.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* New section for Laptop vs. Desktop comparison */}
+          <section className="mt-12 p-8 bg-gray-800 rounded-xl shadow-lg">
+            <h2 className="text-3xl font-bold text-white mb-6 text-center">Laptop vs. Desktop: Which one is right for you?</h2>
+            <p className="text-gray-400 mb-8 text-center max-w-3xl mx-auto">
+              Choosing between a laptop and a desktop depends on your needs. Here's a quick comparison.
+            </p>
+            <div className="overflow-x-auto rounded-lg">
+              <table className="min-w-full bg-gray-900 rounded-lg shadow-inner text-white">
+                <thead class="bg-gray-700 text-gray-200 uppercase text-sm">
+                  <tr>
+                    <th className="py-3 px-4 text-left rounded-tl-lg">Feature</th>
+                    <th className="py-3 px-4 text-left">Laptop</th>
+                    <th className="py-3 px-4 text-left rounded-tr-lg">Desktop</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-700 text-gray-300">
+                  <tr>
+                    <td className="py-3 px-4 font-medium text-gray-200">Portability</td>
+                    <td className="py-3 px-4 text-green-400">Highly portable, all-in-one design</td>
+                    <td className="py-3 px-4 text-red-400">Not portable, stationary setup</td>
+                  </tr>
+                  <tr className="bg-gray-800">
+                    <td className="py-3 px-4 font-medium text-gray-200">Performance</td>
+                    <td className="py-3 px-4 text-red-400">Good for general use, limited by thermal constraints</td>
+                    <td className="py-3 px-4 text-green-400">Superior performance, better cooling capabilities</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 font-medium text-gray-200">Price</td>
+                    <td className="py-3 px-4 text-red-400">Generally more expensive for equivalent performance</td>
+                    <td className="py-3 px-4 text-green-400">More affordable for the same level of performance</td>
+                  </tr>
+                  <tr className="bg-gray-800">
+                    <td className="py-3 px-4 font-medium text-gray-200">Upgradability</td>
+                    <td className="py-3 px-4 text-red-400">Limited, often only RAM and storage can be upgraded</td>
+                    <td className="py-3 px-4 text-green-400">Excellent, most components can be replaced or upgraded</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* New section for Laptop Styles */}
+          <section className="mt-12 p-8 bg-gray-800 rounded-xl shadow-lg">
+            <h2 className="text-3xl font-bold text-white mb-6 text-center">Laptop Styles: Notebook vs. Convertible</h2>
+            <p className="text-gray-400 mb-8 text-center max-w-3xl mx-auto">
+              Laptops come in many form factors. Here's a look at two common types.
+            </p>
+            <div className="overflow-x-auto rounded-lg">
+              <table className="min-w-full bg-gray-900 rounded-lg shadow-inner text-white">
+                <thead class="bg-gray-700 text-gray-200 uppercase text-sm">
+                  <tr>
+                    <th className="py-3 px-4 text-left rounded-tl-lg">Feature</th>
+                    <th className="py-3 px-4 text-left">Notebook Laptop</th>
+                    <th className="py-3 px-4 text-left rounded-tr-lg">Convertible Laptop</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-700 text-gray-300">
+                  <tr>
+                    <td className="py-3 px-4 font-medium text-gray-200">Size / Form Factor</td>
+                    <td className="py-3 px-4">Clamshell design, traditional laptop</td>
+                    <td className="py-3 px-4 text-green-400">360-degree hinge, can be used as a tablet or in "tent" mode</td>
+                  </tr>
+                  <tr className="bg-gray-800">
+                    <td className="py-3 px-4 font-medium text-gray-200">Primary Use Cases</td>
+                    <td className="py-3 px-4 text-green-400">Traditional productivity, work, and general computing</td>
+                    <td className="py-3 px-4 text-green-400">Versatile; for creative work, presentations, and media consumption</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 font-medium text-gray-200">Performance</td>
+                    <td className="py-3 px-4 text-green-400">Often better performance-to-cost ratio due to a simpler design</td>
+                    <td className="py-3 px-4 text-red-400">Performance can be compromised for a slimmer, more flexible design</td>
+                  </tr>
+                  <tr className="bg-gray-800">
+                    <td className="py-3 px-4 font-medium text-gray-200">Connectivity / Features</td>
+                    <td className="py-3 px-4 text-green-400">Often includes more ports and a standard keyboard</td>
+                    <td className="py-3 px-4 text-green-400">Includes a touchscreen and often stylus support</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 font-medium text-gray-200">Upgradability</td>
+                    <td className="py-3 px-4">Limited, often only RAM and storage can be upgraded</td>
+                    <td className="py-3 px-4 text-red-400">Typically more limited than a notebook laptop due to thin design</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section className="mt-12 p-8 bg-gray-800 rounded-xl shadow-lg">
+            <h2 className="text-3xl font-bold text-white mb-6 text-center">Desktop vs. SFF (Small Form Factor) PC</h2>
+            <p className="text-gray-400 mb-8 text-center max-w-3xl mx-auto">
               Here's a comparison to help you decide which form factor is right for your needs.
             </p>
             <div className="overflow-x-auto rounded-lg">
-              <table className="min-w-full bg-white rounded-lg shadow-inner">
-                <thead className="bg-gray-200 text-gray-700 uppercase text-sm">
+              <table className="min-w-full bg-gray-900 rounded-lg shadow-inner text-white">
+                <thead class="bg-gray-700 text-gray-200 uppercase text-sm">
                   <tr>
                     <th className="py-3 px-4 text-left rounded-tl-lg">Feature</th>
                     <th className="py-3 px-4 text-left">Desktop Tower</th>
                     <th className="py-3 px-4 text-left rounded-tr-lg">SFF PC</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 text-gray-600">
+                <tbody className="divide-y divide-gray-700 text-gray-300">
                   <tr>
-                    <td className="py-3 px-4 font-medium text-gray-700">Size</td>
-                    <td className="py-3 px-4">Large, takes up significant space</td>
-                    <td className="py-3 px-4">Compact, fits on a desk or in a media center</td>
+                    <td className="py-3 px-4 font-medium text-gray-200">Size / Form Factor</td>
+                    <td className="py-3 px-4 text-red-400">Large, takes up significant space</td>
+                    <td className="py-3 px-4 text-green-400">Compact, fits on a desk or in a media center</td>
                   </tr>
-                  <tr className="bg-gray-50">
-                    <td className="py-3 px-4 font-medium text-gray-700">Upgradability</td>
-                    <td className="py-3 px-4">Excellent, easy to replace and add components</td>
-                    <td className="py-3 px-4">Limited, specific components often required</td>
-                  </tr>
-                  <tr>
-                    <td className="py-3 px-4 font-medium text-gray-700">Performance</td>
-                    <td className="py-3 px-4">Supports high-performance components, but better cooling options</td>
-                    <td className="py-3 px-4">Generally quieter, but limited cooling can impact sustained performance</td>
-                  </tr>
-                  <tr className="bg-gray-50">
-                    <td className="py-3 px-4 font-medium text-gray-700">Connectivity</td>
-                    <td className="py-3 px-4">Many ports, expansion slots for additional cards</td>
-                    <td className="py-3 px-4">Fewer ports, but usually sufficient for basic peripherals</td>
+                  <tr className="bg-gray-800">
+                    <td className="py-3 px-4 font-medium text-gray-200">Primary Use Cases</td>
+                    <td className="py-3 px-4 text-green-400">Gaming, video editing, professional workstations, power users</td>
+                    <td className="py-3 px-4 text-green-400">Home theater PC (HTPC), office work, basic computing, space-saving setups</td>
                   </tr>
                   <tr>
-                    <td className="py-3 px-4 font-medium text-gray-700 rounded-bl-lg">Ideal Use</td>
-                    <td className="py-3 px-4 text-blue-700">Gaming, video editing, professional workstations, power users</td>
-                    <td className="py-3 px-4 text-blue-700 rounded-br-lg">Home theater PC (HTPC), office work, basic computing, space-saving setups</td>
+                    <td className="py-3 px-4 font-medium text-gray-200">Performance</td>
+                    <td className="py-3 px-4 text-green-400">Supports high-performance components and better cooling</td>
+                    <td className="py-3 px-4 text-red-400">Limited cooling can impact sustained performance</td>
+                  </tr>
+                  <tr className="bg-gray-800">
+                    <td className="py-3 px-4 font-medium text-gray-200">Connectivity / Features</td>
+                    <td className="py-3 px-4 text-green-400">Many ports, expansion slots for additional cards</td>
+                    <td className="py-3 px-4 text-red-400">Fewer ports and expansion slots</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 font-medium text-gray-200 rounded-bl-lg">Upgradability</td>
+                    <td className="py-3 px-4 text-green-400">Excellent, easy to replace and add components</td>
+                    <td className="py-3 px-4 text-red-400">Limited, specific components often required</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </section>
+
+          {/* The modal component is rendered at the end of the App's return block */}
+          <Modal component={selectedComponent} onClose={closeModal} />
         </div>
       );
     };
