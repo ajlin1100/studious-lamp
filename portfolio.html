@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio AJLIN Rivera</title>
+    <title>Portfolio - AJLIN Rivera</title>
     <!-- Favicon link, you can add your own -->
     <link rel="icon" href="https://ajlin1100.github.io/studious-lamp/theshnka.png">
     <!-- Tailwind CSS CDN for styling -->
@@ -21,86 +21,50 @@
 
 <body class="bg-gray-900 text-white min-h-screen flex flex-col">
 
-    <!-- Header & Navigation -->
-    <header class="py-6 px-4 md:px-8">
-        <div class="container mx-auto flex justify-between items-center">
-            <!-- Site Title / Logo -->
-            <a href="index.html" class="text-2xl md:text-3xl font-bold text-white tracking-wide">AJLIN Rivera</a>
-            <!-- Navigation Links -->
-            <nav class="hidden md:flex space-x-6 lg:space-x-8 items-center">
-                <a href="index.html" class="text-lg text-gray-300 hover:text-white transition-colors duration-300">Home</a>
-                <!-- Portfolio Dropdown Menu -->
-                <div class="relative group">
-                    <button class="text-lg text-white transition-colors duration-300 font-semibold focus:outline-none flex items-center">
-                        Portfolio
-                        <!-- Dropdown arrow icon -->
-                        <svg class="ml-2 h-4 w-4 transform group-hover:rotate-180 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <!-- Dropdown content -->
-                    <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 hidden group-hover:block transition-all duration-300 ease-in-out">
-                        <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                            <a href="portfolio.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700 transition-colors font-semibold" role="menuitem">All Projects</a>
-                            <a href="anat_infog.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors" role="menuitem">Computer Anatomy</a>
-                        </div>
-                    </div>
-                </div>
-                <a href="#" class="text-lg text-gray-300 hover:text-white transition-colors duration-300">Contact</a>
-            </nav>
-
-            <!-- Mobile menu button - you can add a menu toggle with JavaScript -->
-            <button
-                class="md:hidden text-gray-300 hover:text-white focus:outline-none focus:text-white transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
-        </div>
+    <!--
+        This is the new placeholder for the navigation bar.
+        The JavaScript at the bottom of the body will find this element
+        and fill it with the content from navbar.html.
+    -->
+    <header id="navbar-placeholder">
     </header>
 
-    <!-- Main Content - Portfolio Section -->
-    <main class="flex-grow flex items-center justify-center py-16 px-4">
-        <div class="container mx-auto text-center max-w-4xl">
-            <h1 class="text-4xl md:text-6xl font-bold mt-8 tracking-tight">
-                My Portfolio
+    <!-- Main Content - Portfolio Grid -->
+    <main class="flex-grow py-16 px-4">
+        <div class="container mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-12 tracking-tight">
+                My Work
             </h1>
-            <p class="mt-6 text-base md:text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                Here you'll find a collection of my work and projects. Explore the different sections to see what I've been up to.
-            </p>
 
-            <!-- Placeholder for project grid or list -->
-            <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Example Project Card -->
-                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform transition-transform duration-300 hover:scale-105">
-                    <img src="https://placehold.co/600x400/1F2937/F3F4F6?text=Project+1" alt="Project 1" class="w-full h-48 object-cover">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <a href="2025_comp_build.html"
+                    class="block bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img class="w-full h-48 object-cover"
+                        src="https://placehold.co/600x400/374151/FFFFFF?text=2025+Computer+Build"
+                        alt="Placeholder image for the 2025 Computer Build project">
                     <div class="p-6">
-                        <h3 class="text-2xl font-bold text-white">Project Title</h3>
-                        <p class="mt-2 text-gray-400 text-sm">A brief description of the project and what it entails. This is a great place to show off your skills.</p>
-                        <a href="#" class="mt-4 inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-colors duration-300">View Project</a>
+                        <h2 class="text-xl font-bold">2025 Computer Build</h2>
+                        <p class="mt-2 text-gray-400">A detailed look into my personal computer build, including
+                            component choices, assembly process, and performance benchmarks.</p>
                     </div>
-                </div>
+                </a>
 
-                <!-- Example Project Card -->
-                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform transition-transform duration-300 hover:scale-105">
-                    <img src="https://placehold.co/600x400/1F2937/F3F4F6?text=Project+2" alt="Project 2" class="w-full h-48 object-cover">
+                <!-- Project Card 2 -->
+                <a href="anat_infog.html"
+                    class="block bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img class="w-full h-48 object-cover"
+                        src="https://placehold.co/600x400/374151/FFFFFF?text=Computer+Anatomy+Infographic"
+                        alt="Placeholder image for the Anatomy Infographic project">
                     <div class="p-6">
-                        <h3 class="text-2xl font-bold text-white">Project Title</h3>
-                        <p class="mt-2 text-gray-400 text-sm">A brief description of the project and what it entails. This is a great place to show off your skills.</p>
-                        <a href="#" class="mt-4 inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-colors duration-300">View Project</a>
+                        <h2 class="text-xl font-bold">Computer Anatomy Infographic</h2>
+                        <p class="mt-2 text-gray-400">An infographic project I created to visually explain complex
+                            anatomical systems and functions in an accessible way.</p>
                     </div>
-                </div>
+                </a>
 
-                <!-- Example Project Card -->
-                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform transition-transform duration-300 hover:scale-105">
-                    <img src="https://placehold.co/600x400/1F2937/F3F4F6?text=Project+3" alt="Project 3" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-white">Project Title</h3>
-                        <p class="mt-2 text-gray-400 text-sm">A brief description of the project and what it entails. This is a great place to show off your skills.</p>
-                        <a href="#" class="mt-4 inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-colors duration-300">View Project</a>
-                    </div>
-                </div>
+                <!-- You can add more project cards here by copying and pasting a new card block -->
+
             </div>
         </div>
     </main>
@@ -112,6 +76,31 @@
         </div>
     </footer>
 
+    <!--
+        This is the new JavaScript code block that fetches navbar.html and
+        inserts it into the placeholder.
+    -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navbarPlaceholder = document.getElementById('navbar-placeholder');
+            if (navbarPlaceholder) {
+                fetch('navbar.html')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        navbarPlaceholder.innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error('Error loading the navbar:', error);
+                        navbarPlaceholder.innerHTML = '<p class="text-red-500 text-center">Error: Could not load navigation bar.</p>';
+                    });
+            }
+        });
+    </script>
 </body>
 
 </html>
