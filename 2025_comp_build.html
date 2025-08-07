@@ -1,40 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PC Build Details</title>
+    <!-- Favicon link, you can add your own -->
+    <link rel="icon" href="https://ajlin1100.github.io/studious-lamp/theshnka.png">
+    <!-- Tailwind CSS CDN for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* A modern font for the entire page */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
         body {
-            font-family: "Inter", sans-serif;
-            background-color: transparent; /* Changed to transparent */
-            color: #e2e8f0; /* Light text color */
-            display: flex;
-            flex-direction: column; /* Allow content and button to stack */
-            justify-content: flex-start; /* Align items to the top */
-            align-items: center;
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c;
+            /* Dark background for contrast */
+            color: #e2e8f0;
+            /* Light text color */
             min-height: 100vh;
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
             box-sizing: border-box;
         }
 
-        .container {
-            display: flex;
-            flex-direction: column; /* Arrange items in a column */
-            gap: 15px; /* Space between components */
+        /* The container for the main content area */
+        .main-content-container {
             width: 90%;
-            max-width: 800px; /* Increased max-width to accommodate the table */
-            background-color: #2d3748; /* Darker background for the container */
+            max-width: 800px;
+            background-color: #2d3748;
             border-radius: 12px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             padding: 25px;
-            position: relative; /* For tooltip positioning */
-            margin-bottom: 20px; /* Space below the main container */
+            position: relative;
+            margin: auto;
+            flex-grow: 1;
         }
 
         .component-item {
-            background-color: #4a5568; /* Slightly lighter background for each item */
+            background-color: #4a5568;
             padding: 15px 20px;
             border-radius: 8px;
             cursor: pointer;
@@ -43,28 +48,30 @@
             font-size: 1.1rem;
             display: flex;
             align-items: center;
-            justify-content: space-between; /* To space out text and image */
+            justify-content: space-between;
             border: 1px solid #667e9c;
+            margin-bottom: 10px;
+            /* Add margin to space out items */
         }
 
         .component-item:hover {
-            background-color: #667e9c; /* Highlight on hover */
-            transform: translateY(-3px); /* Slight lift effect */
+            background-color: #667e9c;
+            transform: translateY(-3px);
         }
 
         .component-item img {
-            width: 50px; /* Fixed width for component images */
-            height: 50px; /* Fixed height for component images */
+            width: 50px;
+            height: 50px;
             border-radius: 4px;
             object-fit: cover;
-            margin-left: 15px; /* Space between text and image */
-            border: 1px solid #81e6d9; /* Small border for images */
-            flex-shrink: 0; /* Prevent image from shrinking */
+            margin-left: 15px;
+            border: 1px solid #81e6d9;
+            flex-shrink: 0;
         }
 
         .tooltip {
-            position: fixed; /* Use fixed for better positioning relative to viewport */
-            background-color: #1a202c; /* Darkest background for tooltip */
+            position: fixed;
+            background-color: #1a202c;
             color: #e2e8f0;
             padding: 18px;
             border-radius: 10px;
@@ -74,9 +81,9 @@
             visibility: hidden;
             transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
             pointer-events: none;
-            max-width: 350px; /* Wider tooltip for more details */
+            max-width: 350px;
             text-align: left;
-            border: 1px solid #81e6d9; /* Teal border for pop-up */
+            border: 1px solid #81e6d9;
         }
 
         .tooltip.visible {
@@ -88,7 +95,7 @@
             font-size: 1.2rem;
             font-weight: bold;
             margin-bottom: 10px;
-            color: #81e6d9; /* Teal color for heading */
+            color: #81e6d9;
             border-bottom: 1px solid #4a5568;
             padding-bottom: 5px;
         }
@@ -105,7 +112,7 @@
 
         .replaces-info {
             font-style: italic;
-            color: #cbd5e0; /* Lighter grey for replaced info */
+            color: #cbd5e0;
             margin-top: 8px;
             padding-top: 5px;
             border-top: 1px dashed #667e9c;
@@ -116,29 +123,30 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 30px;
-            background-color: #1a202c; /* Dark background for table */
+            background-color: #1a202c;
             border-radius: 8px;
-            overflow: hidden; /* For rounded corners on table */
+            overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
         }
 
-        .comparison-table th, .comparison-table td {
+        .comparison-table th,
+        .comparison-table td {
             padding: 12px 15px;
-            border: 1px solid #4a5568; /* Border for cells */
+            border: 1px solid #4a5568;
             text-align: left;
             font-size: 0.95rem;
         }
 
         .comparison-table th {
-            background-color: #2d3748; /* Header background */
-            color: #81e6d9; /* Header text color */
+            background-color: #2d3748;
+            color: #81e6d9;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
         .comparison-table tr:nth-child(even) {
-            background-color: #242b38; /* Alternate row background */
+            background-color: #242b38;
         }
 
         .comparison-table td:last-child {
@@ -148,175 +156,285 @@
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .container {
+            .main-content-container {
                 width: 95%;
                 padding: 15px;
             }
+
             .component-item {
                 font-size: 1rem;
                 padding: 12px 15px;
             }
+
             .component-item img {
                 width: 40px;
                 height: 40px;
                 margin-left: 10px;
             }
+
             .tooltip {
-                max-width: 90%; /* Take more width on smaller screens */
+                max-width: 90%;
                 padding: 12px;
                 font-size: 0.85rem;
             }
+
             .tooltip h3 {
                 font-size: 1.1rem;
             }
-            .comparison-table th, .comparison-table td {
+
+            .comparison-table th,
+            .comparison-table td {
                 padding: 8px 10px;
                 font-size: 0.8rem;
             }
         }
     </style>
 </head>
-<body>
 
-    <div class="container">
-        <h2 class="text-2xl font-bold text-center mb-5 text-teal-300">Your PC Build Components</h2>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
 
-        <div id="cpu-item" class="component-item">AMD Ryzen 7 5800XT CPU <img src="https://placehold.co/50x50/34495e/ecf0f1?text=CPU" alt="CPU Image"></div>
-        <div id="cooler-item" class="component-item">Thermalright Peerless Assassin 120 SE CPU Cooler <img src="https://placehold.co/50x50/34495e/ecf0f1?text=COOLER" alt="Cooler Image"></div>
-        <div id="motherboard-item" class="component-item">ASUS Prime B450 Motherboard <img src="https://placehold.co/50x50/34495e/ecf0f1?text=MOBO" alt="Motherboard Image"></div>
-        <div id="ram-item" class="component-item">64GB HyperX Fury DDR4 RAM <img src="https://placehold.co/50x50/34495e/ecf0f1?text=RAM" alt="RAM Image"></div>
-        <div id="gpu-item" class="component-item">NVIDIA GeForce RTX 3090 GPU <img src="https://placehold.co/50x50/34495e/ecf0f1?text=GPU" alt="GPU Image"></div>
-        <div id="psu-item" class="component-item">Corsair RM1000x PSU <img src="https://placehold.co/50x50/34495e/ecf0f1?text=PSU" alt="PSU Image"></div>
-        <div id="case-item" class="component-item">iBUYPOWER Snowblind S Case <img src="https://placehold.co/50x50/34495e/ecf0f1?text=CASE" alt="Case Image"></div>
-        <div id="storage-item" class="component-item">Storage (SSDs & HDDs) <img src="https://placehold.co/50x50/34495e/ecf0f1?text=STORAGE" alt="Storage Image"></div>
+    <!-- Header & Navigation -->
+    <header class="py-6 px-4 md:px-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Site Title / Logo -->
+            <a href="index.html" class="text-2xl md:text-3xl font-bold text-white tracking-wide">AJLIN Rivera</a>
 
-        <!-- Tooltip for displaying details -->
-        <div id="tooltip" class="tooltip">
-            <h3></h3>
-            <div id="tooltip-content"></div>
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex space-x-6 lg:space-x-8 items-center">
+                <a href="index.html"
+                    class="text-lg text-gray-300 hover:text-white transition-colors duration-300">Home</a>
+                <!-- Portfolio Dropdown Menu -->
+                <div class="relative group">
+                    <button
+                        class="text-lg text-gray-300 hover:text-white transition-colors duration-300 font-semibold focus:outline-none flex items-center">
+                        Portfolio
+                        <!-- Dropdown arrow icon -->
+                        <svg class="ml-2 h-4 w-4 transform group-hover:rotate-180 transition-transform duration-300"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <!-- Dropdown content -->
+                    <div
+                        class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 hidden group-hover:block transition-all duration-300 ease-in-out">
+                        <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                            <a href="portfolio.html"
+                                class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+                                role="menuitem">All Projects</a>
+                            <a href="anat_infog.html"
+                                class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+                                role="menuitem">Computer Anatomy</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="text-lg text-gray-300 hover:text-white transition-colors duration-300">Contact</a>
+            </nav>
+
+            <!-- Mobile menu button - you can add a menu toggle with JavaScript -->
+            <button
+                class="md:hidden text-gray-300 hover:text-white focus:outline-none focus:text-white transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
         </div>
+    </header>
 
-        <h3 class="text-xl font-bold text-center mt-10 mb-5 text-teal-300">Component Comparison: New vs. Old</h3>
-        <table class="comparison-table">
-            <thead>
-                <tr>
-                    <th>Component</th>
-                    <th>Old Spec</th>
-                    <th>New Spec</th>
-                    <th>% Difference</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td rowspan="6">CPU (AMD Ryzen)</td>
-                    <td>Ryzen 5 2600 (6 Cores / 12 Threads)</td>
-                    <td>Ryzen 7 5800XT (8 Cores / 16 Threads)</td>
-                    <td>+33.33% Cores/Threads</td>
-                </tr>
-                <tr>
-                    <td>3.4 GHz Base Clock</td>
-                    <td>3.8 GHz Base Clock</td>
-                    <td>+11.76%</td>
-                </tr>
-                <tr>
-                    <td>3.9 GHz Boost Clock</td>
-                    <td>4.8 GHz Boost Clock</td>
-                    <td>+23.08%</td>
-                </tr>
-                <tr>
-                    <td>16MB L3 Cache</td>
-                    <td>32MB L3 Cache</td>
-                    <td>+100%</td>
-                </tr>
-                <tr>
-                    <td>65W TDP</td>
-                    <td>105W TDP</td>
-                    <td>+61.54%</td>
-                </tr>
-                <tr>
-                    <td>~197 FPS (Gaming)</td>
-                    <td>~221 FPS (Gaming)</td>
-                    <td>+12.18%</td>
-                </tr>
-                <tr>
-                    <td>CPU Cooler</td>
-                    <td>Stock Wraith Prism</td>
-                    <td>Thermalright Peerless Assassin 120 SE</td>
-                    <td>Significant Cooling Improvement</td>
-                </tr>
-                <tr>
-                    <td rowspan="2">RAM</td>
-                    <td>48GB Mixed RAM</td>
-                    <td>64GB HyperX Fury DDR4</td>
-                    <td>+33.33% Capacity</td>
-                </tr>
-                <tr>
-                    <td>~2666MHz Speed</td>
-                    <td>3200MHz Speed</td>
-                    <td>+20.03%</td>
-                </tr>
-                <tr>
-                    <td rowspan="4">GPU (NVIDIA GeForce)</td>
-                    <td>GTX 1060 (6GB GDDR5)</td>
-                    <td>RTX 3090 (24GB GDDR6X)</td>
-                    <td>+300% VRAM</td>
-                </tr>
-                <tr>
-                    <td>~1280 CUDA Cores</td>
-                    <td>10496 CUDA Cores</td>
-                    <td>+720%</td>
-                </tr>
-                <tr>
-                    <td>120W TDP</td>
-                    <td>350W TDP</td>
-                    <td>+191.67%</td>
-                </tr>
-                <tr>
-                    <td>~69 FPS (1440p Gaming)</td>
-                    <td>~162 FPS (1440p Gaming)</td>
-                    <td>+134.78%</td>
-                </tr>
-                <tr>
-                    <td>PSU</td>
-                    <td>Unidentified 750W</td>
-                    <td>Corsair RM1000x (1000W)</td>
-                    <td>+33.33% Wattage</td>
-                </tr>
-                <tr>
-                    <td>Total System Power Draw (Approx.)</td>
-                    <td>~185W (CPU + GPU)</td>
-                    <td>~455W (CPU + GPU)</td>
-                    <td>+145.95%</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <div class="mt-10 p-5 rounded-lg bg-gray-800 shadow-lg">
-            <h3 class="text-xl font-bold text-center mb-5 text-teal-300">Glossary of Terms</h3>
-            <ul class="list-disc list-inside space-y-3 text-sm">
-                <li><strong class="text-teal-200">Cores / Threads:</strong> The "brains" of your CPU. Cores are the physical processing units, while threads are virtual cores that allow the CPU to handle more tasks at once, improving multitasking.</li>
-                <li><strong class="text-teal-200">Clock Speed (GHz):</strong> How many cycles per second a core can execute instructions. A higher number generally means faster performance. The "Base Clock" is the guaranteed minimum speed, while the "Boost Clock" is the maximum speed a core can reach for short periods under load.</li>
-                <li><strong class="text-teal-200">L3 Cache:</strong> A small, very fast memory on the CPU itself that stores frequently used data for quick access, reducing the need to go to the main RAM. More cache means the CPU can work with more data instantly.</li>
-                <li><strong class="text-teal-200">TDP (Thermal Design Power):</strong> The maximum amount of heat a component is expected to generate under typical use. This is a good proxy for power consumption and helps determine what kind of cooling solution you need.</li>
-                <li><strong class="text-teal-200">VRAM (Video RAM):</strong> The dedicated memory on your graphics card (GPU). It stores graphical data like textures and frames. More VRAM is essential for gaming at high resolutions and with high-quality settings.</li>
-                <li><strong class="text-teal-200">CUDA Cores:</strong> These are the processing units within an NVIDIA GPU that are specialized for parallel processing tasks, such as rendering graphics. A higher number of CUDA cores means the GPU can process more data simultaneously, leading to better performance.</li>
-                <li><strong class="text-teal-200">FPS (Frames Per Second):</strong> A measure of how many images your graphics card can render per second. A higher FPS results in a smoother, more responsive visual experience, especially in games.</li>
-            </ul>
+    <!-- Main Content - PC Build Section -->
+    <main class="flex-grow flex flex-col items-center justify-start py-16 px-4">
+        <!-- New container for the main content -->
+        <div class="main-content-container text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-8 tracking-tight text-teal-300">
+                2025 PC Build Components
+            </h1>
+            <p class="text-base md:text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto mb-8">
+                Hover over a component to see detailed specifications.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+                <div id="cpu-item" class="component-item">AMD Ryzen 7 5800XT CPU <img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=CPU" alt="CPU Image"></div>
+                <div id="cooler-item" class="component-item">Thermalright Peerless Assassin 120 SE CPU Cooler <img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=COOLER" alt="Cooler Image"></div>
+                <div id="motherboard-item" class="component-item">ASUS Prime B450 Motherboard <img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=MOBO" alt="Motherboard Image"></div>
+                <div id="ram-item" class="component-item">64GB HyperX Fury DDR4 RAM <img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=RAM" alt="RAM Image"></div>
+                <div id="gpu-item" class="component-item">NVIDIA GeForce RTX 3090 GPU <img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=GPU" alt="GPU Image"></div>
+                <div id="psu-item" class="component-item">Corsair RM1000x PSU <img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=PSU" alt="PSU Image"></div>
+                <div id="case-item" class="component-item">iBUYPOWER Snowblind S Case <img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=CASE" alt="Case Image"></div>
+                <div id="storage-item" class="component-item">Storage (SSDs & HDDs) <img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=STORAGE" alt="Storage Image"></div>
+            </div>
+
+            <!-- Tooltip for displaying details -->
+            <div id="tooltip" class="tooltip">
+                <h3></h3>
+                <div id="tooltip-content"></div>
+            </div>
+
+            <h3 class="text-xl font-bold mt-10 mb-5 text-teal-300">Component Comparison: New vs. Old</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Old Spec</th>
+                        <th>New Spec</th>
+                        <th>% Difference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="6">CPU (AMD Ryzen)</td>
+                        <td>Ryzen 5 2600 (6 Cores / 12 Threads)</td>
+                        <td>Ryzen 7 5800XT (8 Cores / 16 Threads)</td>
+                        <td>+33.33% Cores/Threads</td>
+                    </tr>
+                    <tr>
+                        <td>3.4 GHz Base Clock</td>
+                        <td>3.8 GHz Base Clock</td>
+                        <td>+11.76%</td>
+                    </tr>
+                    <tr>
+                        <td>3.9 GHz Boost Clock</td>
+                        <td>4.8 GHz Boost Clock</td>
+                        <td>+23.08%</td>
+                    </tr>
+                    <tr>
+                        <td>16MB L3 Cache</td>
+                        <td>32MB L3 Cache</td>
+                        <td>+100%</td>
+                    </tr>
+                    <tr>
+                        <td>65W TDP</td>
+                        <td>105W TDP</td>
+                        <td>+61.54%</td>
+                    </tr>
+                    <tr>
+                        <td>~197 FPS (Gaming)</td>
+                        <td>~221 FPS (Gaming)</td>
+                        <td>+12.18%</td>
+                    </tr>
+                    <tr>
+                        <td>CPU Cooler</td>
+                        <td>Stock Wraith Prism</td>
+                        <td>Thermalright Peerless Assassin 120 SE</td>
+                        <td>Significant Cooling Improvement</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">RAM</td>
+                        <td>48GB Mixed RAM</td>
+                        <td>64GB HyperX Fury DDR4</td>
+                        <td>+33.33% Capacity</td>
+                    </tr>
+                    <tr>
+                        <td>~2666MHz Speed</td>
+                        <td>3200MHz Speed</td>
+                        <td>+20.03%</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">GPU (NVIDIA GeForce)</td>
+                        <td>GTX 1060 (6GB GDDR5)</td>
+                        <td>RTX 3090 (24GB GDDR6X)</td>
+                        <td>+300% VRAM</td>
+                    </tr>
+                    <tr>
+                        <td>~1280 CUDA Cores</td>
+                        <td>10496 CUDA Cores</td>
+                        <td>+720%</td>
+                    </tr>
+                    <tr>
+                        <td>120W TDP</td>
+                        <td>350W TDP</td>
+                        <td>+191.67%</td>
+                    </tr>
+                    <tr>
+                        <td>~69 FPS (1440p Gaming)</td>
+                        <td>~162 FPS (1440p Gaming)</td>
+                        <td>+134.78%</td>
+                    </tr>
+                    <tr>
+                        <td>PSU</td>
+                        <td>Unidentified 750W</td>
+                        <td>Corsair RM1000x (1000W)</td>
+                        <td>+33.33% Wattage</td>
+                    </tr>
+                    <tr>
+                        <td>Total System Power Draw (Approx.)</td>
+                        <td>~185W (CPU + GPU)</td>
+                        <td>~455W (CPU + GPU)</td>
+                        <td>+145.95%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mt-10 p-5 rounded-lg bg-gray-800 shadow-lg">
+                <h3 class="text-xl font-bold text-teal-300">Glossary of Terms</h3>
+                <ul class="list-disc list-inside space-y-3 text-sm text-left">
+                    <li><strong class="text-teal-200">Cores / Threads:</strong> The "brains" of your CPU. Cores are the
+                        physical processing units, while threads are virtual cores that allow the CPU to handle more
+                        tasks at once, improving multitasking.</li>
+                    <li><strong class="text-teal-200">Clock Speed (GHz):</strong> How many cycles per second a core can
+                        execute instructions. A higher number generally means faster performance. The "Base Clock" is
+                        the guaranteed minimum speed, while the "Boost Clock" is the maximum speed a core can reach for
+                        short periods under load.</li>
+                    <li><strong class="text-teal-200">L3 Cache:</strong> A small, very fast memory on the CPU itself
+                        that stores frequently used data for quick access, reducing the need to go to the main RAM. More
+                        cache means the CPU can work with more data instantly.</li>
+                    <li><strong class="text-teal-200">TDP (Thermal Design Power):</strong> The maximum amount of heat a
+                        component is expected to generate under typical use. This is a good proxy for power consumption
+                        and helps determine what kind of cooling solution you need.</li>
+                    <li><strong class="text-teal-200">VRAM (Video RAM):</strong> The dedicated memory on your graphics
+                        card (GPU). It stores graphical data like textures and frames. More VRAM is essential for gaming
+                        at high resolutions and with high-quality settings.</li>
+                    <li><strong class="text-teal-200">CUDA Cores:</strong> These are the processing units within an
+                        NVIDIA GPU that are specialized for parallel processing tasks, such as rendering graphics. A
+                        higher number of CUDA cores means the GPU can process more data simultaneously, leading to
+                        better performance.</li>
+                    <li><strong class="text-teal-200">FPS (Frames Per Second):</strong> A measure of how many images
+                        your graphics card can render per second. A higher FPS results in a smoother, more responsive
+                        visual experience, especially in games.</li>
+                </ul>
+            </div>
+
+            <div class="mt-8 p-5 rounded-lg bg-gray-800 shadow-lg">
+                <h3 class="text-xl font-bold text-teal-300">Performance Impact of Upgrades</h3>
+                <p class="text-sm leading-relaxed mb-4 text-left">
+                    The upgrades to your PC represent a massive leap in performance. The new <strong
+                        class="text-teal-200">CPU</strong> has more cores and threads, which will dramatically improve
+                    your ability to multitask and run demanding applications like video editors or streaming software.
+                    The higher clock speeds will also make your games run faster and feel more responsive.
+                </p>
+                <p class="text-sm leading-relaxed mb-4 text-left">
+                    The upgrade to the <strong class="text-teal-200">GPU</strong> is the most significant change. You're
+                    moving from a mid-range card to a top-tier powerhouse. The huge increase in VRAM and CUDA cores
+                    means you can play games at high resolutions (like 1440p and even 4K) with all the settings cranked
+                    up, achieving much higher frame rates and taking advantage of modern features like ray tracing. This
+                    also means a massive boost in performance for any creative work involving 3D rendering or video
+                    editing.
+                </p>
+                <p class="text-sm leading-relaxed text-left">
+                    The increased <strong class="text-teal-200">RAM</strong> capacity and speed will help your system
+                    handle memory-intensive tasks with ease and ensure everything runs smoothly. Finally, the new
+                    <strong class="text-teal-200">PSU</strong> provides a reliable foundation to safely and efficiently
+                    power all these new, more power-hungry components. In short, your new build will be orders of
+                    magnitude faster and more capable than the old one.
+                </p>
+            </div>
         </div>
-        
-        <div class="mt-8 p-5 rounded-lg bg-gray-800 shadow-lg">
-            <h3 class="text-xl font-bold text-center mb-5 text-teal-300">Performance Impact of Upgrades</h3>
-            <p class="text-sm leading-relaxed mb-4">
-                The upgrades to your PC represent a massive leap in performance. The new <strong class="text-teal-200">CPU</strong> has more cores and threads, which will dramatically improve your ability to multitask and run demanding applications like video editors or streaming software. The higher clock speeds will also make your games run faster and feel more responsive.
-            </p>
-            <p class="text-sm leading-relaxed mb-4">
-                The upgrade to the <strong class="text-teal-200">GPU</strong> is the most significant change. You're moving from a mid-range card to a top-tier powerhouse. The huge increase in VRAM and CUDA cores means you can play games at higher resolutions (like 1440p and even 4K) with all the settings cranked up, achieving much higher frame rates and taking advantage of modern features like ray tracing. This also means a massive boost in performance for any creative work involving 3D rendering or video editing.
-            </p>
-            <p class="text-sm leading-relaxed">
-                The increased <strong class="text-teal-200">RAM</strong> capacity and speed will help your system handle memory-intensive tasks with ease and ensure everything runs smoothly. Finally, the new <strong class="text-teal-200">PSU</strong> provides a reliable foundation to safely and efficiently power all these new, more power-hungry components. In short, your new build will be orders of magnitude faster and more capable than the old one.
-            </p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 px-4 md:px-8 text-center text-gray-500">
+        <div class="container mx-auto">
+            <p>&copy; 2025 AJLIN Rivera. All rights reserved.</p>
         </div>
-    </div>
+    </footer>
 
     <script>
         const components = {
@@ -480,4 +598,5 @@
         }
     </script>
 </body>
+
 </html>
