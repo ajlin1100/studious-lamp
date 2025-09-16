@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Build Details</title>
+    <!-- Favicon link, you can add your own -->
+    <link rel="icon" href="https://ajlin1100.github.io/studious-lamp/theshnka.png">
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* A modern font for the entire page */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c;
+            /* Dark background for contrast */
+            color: #e2e8f0;
+            /* Light text color */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        /* The container for the main content area */
+        .main-content-container {
+            width: 80%;
+            max-width: 80vw;
+            background-color: #2d3748;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            padding: 25px;
+            position: relative;
+            margin: auto;
+            flex-grow: 1;
+        }
+
+        .component-item {
+            background-color: #4a5568;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #667e9c;
+            margin-bottom: 10px;
+            /* Add margin to space out items */
+        }
+
+        .component-item:hover {
+            background-color: #667e9c;
+            transform: translateY(-3px);
+        }
+
+        .component-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            object-fit: cover;
+            margin-left: 15px;
+            border: 1px solid #81e6d9;
+            flex-shrink: 0;
+        }
+
+        .tooltip {
+            position: fixed;
+            background-color: #1a202c;
+            color: #e2e8f0;
+            padding: 18px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            pointer-events: none;
+            max-width: 350px;
+            text-align: left;
+            border: 1px solid #81e6d9;
+        }
+
+        .tooltip.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #81e6d9;
+            border-bottom: 1px solid #4a5568;
+            padding-bottom: 5px;
+        }
+
+        .tooltip p {
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .tooltip p:last-child {
+            margin-bottom: 0;
+        }
+
+        .replaces-info {
+            font-style: italic;
+            color: #cbd5e0;
+            margin-top: 8px;
+            padding-top: 5px;
+            border-top: 1px dashed #667e9c;
+        }
+
+        /* Comparison Table Styles */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background-color: #1a202c;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px 15px;
+            border: 1px solid #4a5568;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table th {
+            background-color: #2d3748;
+            color: #81e6d9;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #242b38;
+        }
+
+        .comparison-table td:last-child {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .main-content-container {
+                width: 98%;
+                max-width: 98vw;
+                padding: 15px;
+            }
+
+            .component-item {
+                font-size: 1rem;
+                padding: 12px 15px;
+            }
+
+            .component-item img {
+                width: 40px;
+                height: 40px;
+                margin-left: 10px;
+            }
+
+            .tooltip {
+                max-width: 90%;
+                padding: 12px;
+                font-size: 0.85rem;
+            }
+
+            .tooltip h3 {
+                font-size: 1.1rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+
+<div id="navbar-placeholder"></div>
+    
+    <!-- Main Content - PC Build Section -->
+    <main class="flex-grow flex flex-col items-center justify-start py-16 px-4">
+        <!-- New container for the main content -->
+        <div class="main-content-container text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-8 tracking-tight text-teal-300">
+                2025 PC Build Components
+            </h1>
+            <p class="text-base md:text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto mb-8">
+                Hover over a component to see detailed specifications.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+                <div id="cpu-item" class="component-item">AMD Ryzen 7 5800XT <img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=CPU" alt="CPU Image"></div>
+                <div id="cooler-item" class="component-item">Thermalright Peerless Assassin 120 SE<img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=COOLER" alt="Cooler Image"></div>
+                <div id="motherboard-item" class="component-item">ASUS Prime B450<img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=MOBO" alt="Motherboard Image"></div>
+                <div id="ram-item" class="component-item">64GB HyperX Fury<img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=RAM" alt="RAM Image"></div>
+                <div id="gpu-item" class="component-item">NVIDIA GeForce RTX 3090<img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=GPU" alt="GPU Image"></div>
+                <div id="psu-item" class="component-item">Corsair RM1000x<img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=PSU" alt="PSU Image"></div>
+                <div id="case-item" class="component-item">iBUYPOWER Snowblind S<img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=CASE" alt="Case Image"></div>
+                <div id="storage-item" class="component-item">Storage (SSDs & HDDs) <img
+                        src="https://placehold.co/50x50/34495e/ecf0f1?text=STORAGE" alt="Storage Image"></div>
+            </div>
+
+            <!-- Tooltip for displaying details -->
+            <div id="tooltip" class="tooltip">
+                <h3></h3>
+                <div id="tooltip-content"></div>
+            </div>
+
+            <h3 class="text-xl font-bold mt-10 mb-5 text-teal-300">Component Comparison: New vs. Old</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Old Spec</th>
+                        <th>New Spec</th>
+                        <th>% Difference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="6">CPU (AMD Ryzen)</td>
+                        <td>Ryzen 5 2600 (6 Cores / 12 Threads)</td>
+                        <td>Ryzen 7 5800XT (8 Cores / 16 Threads)</td>
+                        <td>+33.33% Cores/Threads</td>
+                    </tr>
+                    <tr>
+                        <td>3.4 GHz Base Clock</td>
+                        <td>3.8 GHz Base Clock</td>
+                        <td>+11.76%</td>
+                    </tr>
+                    <tr>
+                        <td>3.9 GHz Boost Clock</td>
+                        <td>4.8 GHz Boost Clock</td>
+                        <td>+23.08%</td>
+                    </tr>
+                    <tr>
+                        <td>16MB L3 Cache</td>
+                        <td>32MB L3 Cache</td>
+                        <td>+100%</td>
+                    </tr>
+                    <tr>
+                        <td>65W TDP</td>
+                        <td>105W TDP</td>
+                        <td>+61.54%</td>
+                    </tr>
+                    <tr>
+                        <td>~197 FPS (Gaming)</td>
+                        <td>~221 FPS (Gaming)</td>
+                        <td>+12.18%</td>
+                    </tr>
+                    <tr>
+                        <td>CPU Cooler</td>
+                        <td>Stock Wraith Prism</td>
+                        <td>Thermalright Peerless Assassin 120 SE</td>
+                        <td>Significant Cooling Improvement</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">RAM</td>
+                        <td>48GB Mixed RAM</td>
+                        <td>64GB HyperX Fury DDR4</td>
+                        <td>+33.33% Capacity</td>
+                    </tr>
+                    <tr>
+                        <td>~2666MHz Speed</td>
+                        <td>3200MHz Speed</td>
+                        <td>+20.03%</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">GPU</td>
+                        <td>GTX 1060 (6GB GDDR5)</td>
+                        <td>RTX 3090 (24GB GDDR6X)</td>
+                        <td>+300% VRAM</td>
+                    </tr>
+                    <tr>
+                        <td>~1280 CUDA Cores</td>
+                        <td>10496 CUDA Cores</td>
+                        <td>+720%</td>
+                    </tr>
+                    <tr>
+                        <td>120W TDP</td>
+                        <td>350W TDP</td>
+                        <td>+191.67%</td>
+                    </tr>
+                    <tr>
+                        <td>~69 FPS (1440p Gaming)</td>
+                        <td>~162 FPS (1440p Gaming)</td>
+                        <td>+134.78%</td>
+                    </tr>
+                    <tr>
+                        <td>PSU</td>
+                        <td>GAMEMAX RGB750 (750W)</td>
+                        <td>Corsair RM1000x (1000W)</td>
+                        <td>+33.33% Wattage</td>
+                    </tr>
+                    <tr>
+                        <td>Total System Power Draw (Approx.)</td>
+                        <td>~185W (CPU + GPU)</td>
+                        <td>~455W (CPU + GPU)</td>
+                        <td>+145.95%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Final Build Comparison Table -->
+            <h3 class="text-xl font-bold mt-10 mb-5 text-teal-300">Final Build: Actual Components</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Old Spec</th>
+                        <th>Final Build Spec</th>
+                        <th>% Difference / Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="6">CPU (AMD Ryzen)</td>
+                        <td>Ryzen 5 2600 (6 Cores / 12 Threads)</td>
+                        <td>Ryzen 7 5700X (8 Cores / 16 Threads)</td>
+                        <td>+33.33% Cores/Threads</td>
+                    </tr>
+                    <tr>
+                        <td>3.4 GHz Base Clock</td>
+                        <td>3.4 GHz Base Clock</td>
+                        <td>0% (Similar base clock)</td>
+                    </tr>
+                    <tr>
+                        <td>3.9 GHz Boost Clock</td>
+                        <td>4.6 GHz Boost Clock</td>
+                        <td>+17.95%</td>
+                    </tr>
+                    <tr>
+                        <td>16MB L3 Cache</td>
+                        <td>32MB L3 Cache</td>
+                        <td>+100%</td>
+                    </tr>
+                    <tr>
+                        <td>65W TDP</td>
+                        <td>65W TDP</td>
+                        <td>0% (Same TDP)</td>
+                    </tr>
+                    <tr>
+                        <td>~197 FPS (Gaming)</td>
+                        <td>~215 FPS (Gaming)</td>
+                        <td>+9.14%</td>
+                    </tr>
+                    <tr>
+                        <td>CPU Cooler</td>
+                        <td>Stock Wraith Prism</td>
+                        <td>Arctic Liquid Freezer III Pro (AIO)</td>
+                        <td>Significant Cooling & Acoustic Improvement</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">RAM</td>
+                        <td>48GB Mixed RAM</td>
+                        <td>64GB HyperX Fury DDR4</td>
+                        <td>+33.33% Capacity</td>
+                    </tr>
+                    <tr>
+                        <td>~2666MHz Speed</td>
+                        <td>3200MHz Speed</td>
+                        <td>+20.03%</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">GPU</td>
+                        <td>GTX 1060 (6GB GDDR5)</td>
+                        <td>RTX 3090 (24GB GDDR6X)</td>
+                        <td>+300% VRAM</td>
+                    </tr>
+                    <tr>
+                        <td>~1280 CUDA Cores</td>
+                        <td>10496 CUDA Cores</td>
+                        <td>+720%</td>
+                    </tr>
+                    <tr>
+                        <td>120W TDP</td>
+                        <td>350W TDP</td>
+                        <td>+191.67%</td>
+                    </tr>
+                    <tr>
+                        <td>~69 FPS (1440p Gaming)</td>
+                        <td>~162 FPS (1440p Gaming)</td>
+                        <td>+134.78%</td>
+                    </tr>
+                    <tr>
+                        <td>PSU</td>
+                        <td>Corsair RM1000x (1000W)</td>
+                        <td>GAMEMAX RGB750 (750W)</td>
+                        <td>-25% Wattage (Lower wattage PSU; ensure compatibility)</td>
+                    </tr>
+                    <tr>
+                        <td>Total System Power Draw (Approx.)</td>
+                        <td>~455W (CPU + GPU)</td>
+                        <td>~455W (CPU + GPU)</td>
+                        <td>0% (Power draw unchanged; PSU may be undersized)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mt-10 p-5 rounded-lg bg-gray-800 shadow-lg">
+                <h3 class="text-xl font-bold text-teal-300">Glossary of Terms</h3>
+                <ul class="list-disc list-inside space-y-3 text-sm text-left">
+                    <li><strong class="text-teal-200">Cores / Threads:</strong> The "brains" of your CPU. Cores are the
+                        physical processing units, while threads are virtual cores that allow the CPU to handle more
+                        tasks at once, improving multitasking.</li>
+                    <li><strong class="text-teal-200">Clock Speed (GHz):</strong> How many cycles per second a core can
+                        execute instructions. A higher number generally means faster performance. The "Base Clock" is
+                        the guaranteed minimum speed, while the "Boost Clock" is the maximum speed a core can reach for
+                        short periods under load.</li>
+                    <li><strong class="text-teal-200">L3 Cache:</strong> A small, very fast memory on the CPU itself
+                        that stores frequently used data for quick access, reducing the need to go to the main RAM. More
+                        cache means the CPU can work with more data instantly.</li>
+                    <li><strong class="text-teal-200">TDP (Thermal Design Power):</strong> The maximum amount of heat a
+                        component is expected to generate under typical use. This is a good proxy for power consumption
+                        and helps determine what kind of cooling solution you need.</li>
+                    <li><strong class="text-teal-200">VRAM (Video RAM):</strong> The dedicated memory on your graphics
+                        card (GPU). It stores graphical data like textures and frames. More VRAM is essential for gaming
+                        at high resolutions and with high-quality settings.</li>
+                    <li><strong class="text-teal-200">CUDA Cores:</strong> These are the processing units within an
+                        NVIDIA GPU that are specialized for parallel processing tasks, such as rendering graphics. A
+                        higher number of CUDA cores means the GPU can process more data simultaneously, leading to
+                        better performance.</li>
+                    <li><strong class="text-teal-200">FPS (Frames Per Second):</strong> A measure of how many images
+                        your graphics card can render per second. A higher FPS results in a smoother, more responsive
+                        visual experience, especially in games.</li>
+                </ul>
+            </div>
+
+            <div class="mt-8 p-5 rounded-lg bg-gray-800 shadow-lg">
+                <h3 class="text-xl font-bold text-teal-300">Performance Impact of Upgrades</h3>
+                <p class="text-sm leading-relaxed mb-4 text-left">
+                    Your final CPU, the <strong class="text-teal-200">AMD Ryzen 7 5700X</strong> (8 cores / 16 threads),
+                    is a solid productivity and gaming upgrade over the Ryzen 5 2600. It provides meaningful gains in
+                    multithreaded workloads (video editing, transcodes, streaming) while keeping a modest 65W TDP.
+                    The Arctic Liquid Freezer III Pro AIO cooler improves sustained thermal performance compared to a
+                    stock cooler, which helps the 5700X maintain boost clocks under extended loads and keeps noise low.
+                </p>
+                <p class="text-sm leading-relaxed mb-4 text-left">
+                    The <strong class="text-teal-200">RTX 3090</strong> remains the biggest single performance
+                    increase: vastly more CUDA cores and VRAM compared to the GTX 1060. Expect much higher frame rates
+                    at 1440p and 4K, and significantly better performance in GPU-accelerated workloads (3D render,
+                    machine learning, GPU encoding). Note that the RTX 3090 draws substantially more power and produces
+                    more heat, so case airflow and PSU capacity become more important.
+                </p>
+                <p class="text-sm leading-relaxed text-left">
+                    The <strong class="text-teal-200">64GB</strong> of HyperX Fury DDR4 at 3200MHz will eliminate
+                    memory bottlenecks for large projects and heavy multitasking. However, your selected <strong
+                        class="text-teal-200">PSU</strong> (GAMEMAX RGB750, 750W) is lower wattage than the previously
+                    suggested Corsair RM1000x. While a quality 750W unit can run many systems, an RTX 3090 plus a high-
+                    performance CPU is close to the upper range for that capacity, especially if you add multiple
+                    drives or overclock. I recommend verifying total system draw (allow ~20-30% headroom) and
+                    considering an upgrade to an 850W–1000W unit with an 80+ Gold rating for longevity and stability.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 px-4 md:px-8 text-center text-gray-500">
+        <div class="container mx-auto">
+            <p>&copy; 2025 AJLIN Rivera. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const components = {
+            'cpu': {
+                name: 'AMD Ryzen 7 5800XT',
+                replaces: 'AMD Ryzen 5 2600',
+                specs: [
+                    '<strong>Socket:</strong> AM4',
+                    '<strong>Cores / Threads:</strong> 8 Cores / 16 Threads',
+                    '<strong>Base Clock:</strong> 3.8 GHz',
+                    '<strong>Boost Clock:</strong> Up to 4.8 GHz',
+                    '<strong>L3 Cache:</strong> 32MB',
+                    '<strong>TDP:</strong> 105W',
+                    '<strong>Manufacturing Process:</strong> TSMC 7nm "Zen 3" architecture'
+                ]
+            },
+            'cooler': {
+                name: 'Thermalright Peerless Assassin 120 SE',
+                replaces: 'Stock Wraith Prism Cooler',
+                specs: [
+                    '<strong>Design:</strong> Dual-tower, six 6mm heatpipe design with a copper base',
+                    '<strong>Fans:</strong> 2x 120mm TL-C12C PWM fans',
+                    '<strong>Fan Speed:</strong> Up to 1550 RPM ± 10%',
+                    '<strong>Noise Level:</strong> 25.6 dBA (max)',
+                    '<strong>Dimensions:</strong> 155mm height'
+                ]
+            },
+            'motherboard': {
+                name: 'ASUS Prime B450',
+                specs: [
+                    '<strong>Chipset:</strong> AMD B450',
+                    '<strong>Socket:</strong> AM4',
+                    '<strong>Memory Slots:</strong> 4x DDR4 DIMM slots (Dual Channel)',
+                    '<strong>Max RAM Capacity:</strong> 128GB',
+                    '<strong>Max RAM Speed:</strong> Supports up to 3200MHz+',
+                    '<strong>Expansion Slots:</strong> 1x PCIe 3.0 x16, multiple PCIe 2.0 x1',
+                    '<strong>Storage Interfaces:</strong> 1x M.2 (PCIe 3.0 x4), 6x SATA 6Gb/s'
+                ]
+            },
+            'ram': {
+                name: '64GB (2x32GB) HyperX Fury DDR4',
+                replaces: '48GB of Mixed RAM',
+                specs: [
+                    '<strong>Capacity:</strong> 64GB (32GB per module)',
+                    '<strong>Speed:</strong> 3200MHz',
+                    '<strong>Latency:</strong> CL16',
+                    '<strong>Voltage:</strong> 1.35V'
+                ]
+            },
+            'gpu': {
+                name: 'NVIDIA GeForce RTX 3090 24GB',
+                replaces: 'NVIDIA GeForce GTX 1060',
+                specs: [
+                    '<strong>Architecture:</strong> Ampere (GA102)',
+                    '<strong>CUDA Cores:</strong> 10,496',
+                    '<strong>VRAM:</strong> 24GB GDDR6X',
+                    '<strong>Memory Interface:</strong> 384-bit',
+                    '<strong>Boost Clock:</strong> 1.70 GHz (varies by model)',
+                    '<strong>TDP:</strong> 350W',
+                    '<strong>Interface:</strong> PCI Express 4.0 x16'
+                ]
+            },
+            'psu': {
+                name: 'Corsair RM1000x',
+                replaces: 'GAMEMAX RGB750',
+                specs: [
+                    '<strong>Power Output:</strong> 1000W',
+                    '<strong>Efficiency Rating:</strong> 80+ Gold',
+                    '<strong>Modularity:</strong> Fully Modular',
+                    '<strong>Fan:</strong> 135mm Magnetic Levitation fan with Zero RPM mode',
+                    '<strong>Dimensions:</strong> 150mm (W) x 86mm (H) x 180mm (L)'
+                ]
+            },
+            'case': {
+                name: 'iBUYPOWER Snowblind S',
+                specs: [
+                    '<strong>Form Factor:</strong> Mid-Tower',
+                    '<strong>PSU Clearance:</strong> Up to 190mm',
+                    '<strong>CPU Cooler Clearance:</strong> Up to 160mm',
+                    '<strong>GPU Clearance:</strong> Up to 295mm (with radiator) / 420mm (without)',
+                    '<strong>Radiator Support:</strong> Front: up to 360mm. Rear: 120mm.'
+                ]
+            },
+            'storage': {
+                name: 'Storage (NVMe SSD, 2.5" SSDs, HDDs)',
+                replaces: 'Existing Storage (as before)',
+                specs: [
+                    '<strong>NVMe SSD:</strong> PCIe 3.0 x4 interface, up to ~3500MB/s',
+                    '<strong>2.5" SSDs:</strong> SATA III interface, up to ~550MB/s',
+                    '<strong>Traditional HDDs:</strong> SATA III interface, typically 3.5" drives, 7200 RPM'
+                ]
+            }
+        };
+
+        const tooltip = document.getElementById('tooltip');
+        const tooltipTitle = tooltip.querySelector('h3');
+        const tooltipContent = document.getElementById('tooltip-content');
+
+        // Add event listeners to each component item for tooltips
+        Object.keys(components).forEach(key => {
+            const item = document.getElementById(`${key}-item`);
+            if (item) {
+                item.addEventListener('mouseover', (event) => showTooltip(event, components[key]));
+                item.addEventListener('mouseout', hideTooltip);
+            }
+        });
+
+        function showTooltip(event, componentData) {
+            tooltipTitle.textContent = componentData.name;
+            let specsHtml = componentData.specs.map(spec => `<p>${spec}</p>`).join('');
+
+            // Add "replaces" information if available
+            if (componentData.replaces) {
+                specsHtml += `<p class="replaces-info">Replaces: ${componentData.replaces}</p>`;
+            }
+
+            tooltipContent.innerHTML = specsHtml;
+
+            // Get mouse coordinates relative to the viewport
+            let mouseX = event.clientX;
+            let mouseY = event.clientY;
+
+            // Set a small offset from the cursor
+            const offsetX = 15;
+            const offsetY = 15;
+
+            // Position the tooltip
+            tooltip.style.left = `${mouseX + offsetX}px`;
+            tooltip.style.top = `${mouseY + offsetY}px`;
+
+            tooltip.classList.add('visible');
+
+            // Adjust if tooltip goes out of bounds
+            const tooltipRect = tooltip.getBoundingClientRect();
+
+            // If tooltip overflows right, move to left of cursor
+            if (tooltipRect.right > window.innerWidth - 10) { // 10px padding from edge
+                tooltip.style.left = `${mouseX - tooltipRect.width - offsetX}px`;
+            }
+
+            // If tooltip overflows bottom, move up from cursor
+            if (tooltipRect.bottom > window.innerHeight - 10) {
+                tooltip.style.top = `${mouseY - tooltipRect.height - offsetY}px`;
+            }
+
+            // If tooltip overflows top (after potentially moving up), reset to top of viewport
+            if (tooltipRect.top < 10) {
+                tooltip.style.top = `10px`;
+            }
+
+            // If tooltip overflows left (after potentially moving left), reset to left of viewport
+            if (tooltipRect.left < 10) {
+                tooltip.style.left = `10px`;
+            }
+        }
+
+        function hideTooltip() {
+            tooltip.classList.remove('visible');
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navbarPlaceholder = document.getElementById('navbar-placeholder');
+            if (navbarPlaceholder) {
+                fetch('navbar.html')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        navbarPlaceholder.innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error('Error loading the navbar:', error);
+                        navbarPlaceholder.innerHTML = '<p class="text-red-500 text-center">Error: Could not load navigation bar.</p>';
+                    });
+            }
+        });
+    </script>
+</body>
+
+</html>
