@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resource Gallery</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            border-bottom: 2px solid #293e40;
+            padding-bottom: 10px;
+            color: #1d2d2e;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border: 1px solid #277e2d;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #277e2d;
+        }
+
+        .card p {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #293e40;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Professional Portfolio: ServiceNow & Web UI</h1>
+        <p>A collection of internal tools, bypassed forms, and system resources.</p>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Auth-Bypassed Form A</h3>
+                <p>Custom ServiceNow entry point for external data ingestion without session requirements.</p>
+                <a href="https://your-instance.service-now.com/x_custom_form_a.do" target="_blank" class="btn">View
+                    Resource</a>
+            </div>
+
+            <div class="card">
+                <h3>ServiceNow Portal Page</h3>
+                <p>Custom widgets and CSS overrides for the internal employee service portal.</p>
+                <a href="https://your-instance.service-now.com/sp?id=custom_page" target="_blank" class="btn">View
+                    Resource</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
