@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiceNow Budget Tracking System Proposal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: #1d2d50;
+            border-bottom: 3px solid #133b5c;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #133b5c;
+            margin-top: 30px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 5px;
+            font-size: 22px;
+        }
+
+        h3 {
+            color: #1e5f74;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        .executive-summary {
+            background-color: #f0f7f4;
+            border-left: 4px solid #1e5f74;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .hierarchy-box {
+            background-color: #1d2d50;
+            color: #ffffff;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 6px;
+            letter-spacing: 1px;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #133b5c;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            background-color: #e2e8f0;
+            color: #4a5568;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .footer {
+            margin-top: 5px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 12px;
+            color: #777777;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Proposal: ServiceNow Automated Budget Tracking Architecture</h1>
+
+        <div class="executive-summary">
+            <strong>Executive Summary:</strong> This document details the logistics for upgrading our ServiceNow
+            platform to aggregate expenditures across Procurement, Software Licensing, and Asset Management. By
+            standardizing transaction tags against our pre-existing Source Codes and Spend Codes, this solution
+            automates corporate budget tracking, eliminates manual ledger consolidation, and delivers transparent,
+            top-down financial reporting.
+        </div>
+
+        <h2>1. Target Reporting Hierarchy</h2>
+        <p>The proposed framework maps exactly to our organizational workflow, driving accountability down from the
+            master department budget down to distinct tracking categories:</p>
+
+        <div class="hierarchy-box">
+            Budget &rarr; Unit &rarr; Total Expenditure &rarr; Expenditure by Spend Code
+        </div>
+
+        <h2>2. Normalized Data Architecture</h2>
+        <p>To avoid cluttering historical master data, a custom application scope featuring a 3-tier relational data
+            model will be deployed. This architecture builds upon our existing source and sub-code databases.</p>
+
+        <h3>A. Master Budget Tier <span class="badge">u_budget</span></h3>
+        <ul>
+            <li><strong>Description:</strong> The top-level wrapper defining a specific financial term (e.g., Fiscal
+                Year 2026).</li>
+            <li><strong>Key Metrics:</strong> Total Budgeted vs. Total Spent (Read-Only fields dynamically calculated
+                from Child Records).</li>
+        </ul>
+
+        <h3>B. Unit Allocation Tier <span class="badge">u_budget_unit</span></h3>
+        <ul>
+            <li><strong>Description:</strong> Segmented records representing the distinct operating divisions.</li>
+            <li><strong>Target Units:</strong> AV, US, IT, EI, SF, and IMP.</li>
+            <li><strong>Operational Mechanics:</strong> Operational leads input their <strong>Budget Line</strong>
+                (Allocated Funds) manually at this level. The <em>Total Expenditure</em> metric updates automatically
+                via automated script roll-ups.</li>
+        </ul>
+
+        <h3>C. Spend Code Tracking Tier <span class="badge">u_budget_spend_code_line</span></h3>
+        <ul>
+            <li><strong>Description:</strong> The transactional nexus layer matching Source Codes (<span
+                    class="badge">u_wd_code</span>) with Spend Codes (<span class="badge">u_sub_codes</span>).</li>
+            <li><strong>Functional Scope:</strong> Isolates expenditures across our three primary asset types into
+                discrete columns for fine-grained querying.</li>
+        </ul>
+
+        <h2>3. Proposed Database Relationships</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Table Name</th>
+                    <th>Type / Source</th>
+                    <th>Primary Roll-up Relationship (Many-to-One)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Budget</strong></td>
+                    <td>New Custom Table</td>
+                    <td><em>Top-Level Root Container</em></td>
+                </tr>
+                <tr>
+                    <td><strong>Budget Unit</strong></td>
+                    <td>New Custom Table</td>
+                    <td>References <strong>Budget Record</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Budget Spend Code Line</strong></td>
+                    <td>New Custom Table</td>
+                    <td>References <strong>Budget Unit</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Source Codes</strong></td>
+                    <td>Existing Table (<span class="badge">u_wd_code</span>)</td>
+                    <td>Mapped dynamically into individual Spend Code Lines</td>
+                </tr>
+                <tr>
+                    <td><strong>Spend Codes</strong></td>
+                    <td>Existing Table (<span class="badge">u_sub_codes</span>)</td>
+                    <td>Mapped dynamically into individual Spend Code Lines</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>4. Technical Integration & Automation Logistics</h2>
+
+        <h3>A. Data Validation Rules (Transactional Gates)</h3>
+        <p>To automate data capture cleanly, the baseline Procurement, Software Licensing, and Asset Management tracking
+            interfaces will require modifications. Any transaction closing or execution state must require validation
+            against our Source Code (<span class="badge">u_wd_code</span>) and Spend Code (<span
+                class="badge">u_sub_codes</span>) entries.</p>
+
+        <h3>B. Asynchronous Aggregation Engine</h3>
+        <p>To preserve platform user-experience speeds and eliminate transaction lockouts, calculations will be
+            calculated out-of-band via a <strong>ServiceNow Scheduled Script Execution</strong>:</p>
+        <ul>
+            <li><strong>Schedule:</strong> Executes nightly during off-peak hours (e.g., 01:00 AM).</li>
+            <li><strong>Pass 1:</strong> The script queries the Procurement, Software, and Asset tables, summarizing
+                lines grouped by financial codes and posting the results into the corresponding <span
+                    class="badge">u_budget_spend_code_line</span> record.</li>
+            <li><strong>Pass 2:</strong> A <code>GlideAggregate</code> query combines the Spend Code lines to instantly
+                calculate expenditures for the six core <strong>Units</strong>.</li>
+            <li><strong>Pass 3:</strong> The script updates the master <strong>Budget</strong> record with global
+                summaries.</li>
+        </ul>
+
+        <h2>5. Executive Reporting Capabilities</h2>
+        <p>Because the structure enforces strict relational hierarchy up to the top level, ServiceNow's native report
+            builder can instantly deliver high-visibility, real-time metrics:</p>
+        <ul>
+            <li><strong>Director's Dashboard:</strong> A unified dashboard displaying real-time burn-down meters
+                comparing Allocated Budget against actual expenditures across the six operating Units.</li>
+            <li><strong>Interactive Drill-Downs:</strong> Clicking an individual Unit segment (e.g., <strong>IT</strong>
+                or <strong>AV</strong>) immediately drills into detailed lists highlighting exactly which Spend Codes
+                (such as Software Subcodes vs. Hardware Procurement) are driving consumption.</li>
+            <li><strong>Proactive Platform Alerts:</strong> Automated platform notifications can flag the System
+                Administrator or Unit leads if a specific line item's expenditures surpass a critical threshold (e.g.,
+                90% of the allocated budget line).</li>
+        </ul>
+
+        <div class="footer">
+            Prepared by: AJ Rivera &bull; Confidential &mdash; Internal Use Only
+        </div>
+    </div>
+
+</body>
+
+</html>
